@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MTT085 Metalldelen – Flashcards</title>
+<meta name="description" content="Tentafokuserade flashcards för metalldelen i Materialteknik MTT085, Chalmers.">
+<meta name="theme-color" content="#0C1C46">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0C1C46; --navy-2:#22325C; --navy-3:#3B4A73;
+  --tint:#EEF1F7; --tint-2:#F6F7FB; --line:#E3E7EF; --line-2:#D3D9E5;
+  --ink:#121826; --muted:#5D6679; --faint:#8A92A3;
+  --ok:#17784A; --ok-tint:#E7F4EC; --star:#A86A12; --star-tint:#FBF2E2;
+  --danger:#B42318; --danger-tint:#FDECEA;
+  --radius:14px; --radius-sm:9px;
+  --shadow:0 1px 2px rgba(12,28,70,.06), 0 6px 24px rgba(12,28,70,.07);
+  --font:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#fff;color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--navy);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+
+/* Header */
+.top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:saturate(1.4) blur(8px);-webkit-backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--line)}
+.top-row{display:flex;align-items:center;gap:14px;min-height:62px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand-mark{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:9px;background:var(--navy);color:#fff;font-weight:700;font-size:.78rem;letter-spacing:.02em}
+.brand-text{min-width:0}
+.brand-text b{display:block;font-size:1rem;line-height:1.2;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand-text span{display:block;font-size:.78rem;color:var(--muted);line-height:1.2}
+.tabs{display:flex;gap:2px;margin-left:auto}
+.tab{border:0;background:none;padding:9px 13px;border-radius:9px;color:var(--muted);font-weight:500;font-size:.95rem;white-space:nowrap}
+.tab:hover{background:var(--tint-2);color:var(--navy)}
+.tab[aria-selected="true"]{background:var(--tint);color:var(--navy);font-weight:600}
+.top-ring{flex:none;display:flex;align-items:center;gap:8px;padding-left:12px;border-left:1px solid var(--line);font-size:.8rem;color:var(--muted)}
+.top-ring b{color:var(--navy);font-size:.95rem}
+@media (max-width:760px){
+  .top-row{flex-wrap:wrap;gap:6px 10px;padding:8px 16px}
+  .tabs{order:3;width:100%;margin:0}
+  .tab{flex:1;padding:9px 6px;font-size:.9rem}
+  .top-ring{margin-left:auto;border-left:0;padding-left:0}
+  .brand{flex:1 1 0;min-width:0}
+}
+
+main{padding:20px 0 64px}
+.view[hidden]{display:none!important}
+
+/* Chips */
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 12px;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.chip{flex:none;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line-2);background:#fff;border-radius:999px;padding:7px 13px;font-size:.88rem;color:var(--ink);font-weight:500;white-space:nowrap}
+.chip small{font-size:.75rem;color:var(--faint);font-weight:500;font-variant-numeric:tabular-nums}
+.chip:hover{border-color:var(--navy-3)}
+.chip[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.chip[aria-pressed="true"] small{color:#C9D1E6}
+
+/* Study layout */
+.study-grid{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:22px;align-items:start}
+@media (max-width:900px){.study-grid{grid-template-columns:1fr}.study-side{order:-1}}
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:14px}
+.seg{display:inline-flex;background:var(--tint-2);border:1px solid var(--line);border-radius:10px;padding:3px}
+.seg button{border:0;background:none;padding:6px 12px;border-radius:7px;font-size:.88rem;color:var(--muted);font-weight:500}
+.seg button[aria-pressed="true"]{background:#fff;color:var(--navy);font-weight:600;box-shadow:0 1px 2px rgba(12,28,70,.12)}
+.toggle{display:inline-flex;align-items:center;gap:8px;font-size:.88rem;color:var(--muted);user-select:none;cursor:pointer}
+.toggle input{width:17px;height:17px;accent-color:var(--navy);margin:0}
+.spacer{flex:1}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid var(--line-2);background:#fff;color:var(--ink);border-radius:10px;padding:10px 16px;font-weight:500;font-size:.95rem;line-height:1.2;transition:background .15s,border-color .15s,color .15s}
+.btn:hover{border-color:var(--navy-3);background:var(--tint-2)}
+.btn.primary{background:var(--navy);border-color:var(--navy);color:#fff}
+.btn.primary:hover{background:var(--navy-2)}
+.btn.sm{padding:6px 11px;font-size:.85rem;border-radius:8px}
+.btn.ghost{border-color:transparent;background:none;color:var(--muted)}
+.btn.ghost:hover{background:var(--tint-2);color:var(--navy)}
+.btn.ok[aria-pressed="true"]{background:var(--ok-tint);border-color:#9FD3B6;color:var(--ok)}
+.btn.star[aria-pressed="true"]{background:var(--star-tint);border-color:#E6C48A;color:var(--star)}
+.btn.danger{color:var(--danger)}
+.btn.danger:hover{background:var(--danger-tint);border-color:#F2B8B1}
+.btn svg{width:17px;height:17px;flex:none}
+.btn:disabled{opacity:.45;cursor:default}
+
+/* Flashcard */
+.stage{perspective:1400px}
+.fc{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);min-height:340px;padding:22px 26px 24px;cursor:pointer;transition:transform .16s ease, opacity .16s ease;transform-origin:center;outline:none}
+.fc:focus-visible{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--navy)}
+.fc.turn{transform:rotateY(88deg);opacity:.6}
+.fc.slide-l{transform:translateX(-14px);opacity:0}
+.fc.slide-r{transform:translateX(14px);opacity:0}
+@media (prefers-reduced-motion:reduce){.fc{transition:none}}
+.fc::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:4px;border-radius:0 4px 4px 0;background:var(--navy)}
+.fc.is-back::before{background:var(--ok)}
+.fc-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin-bottom:16px}
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:.74rem;font-weight:600;letter-spacing:.02em;border-radius:6px;padding:3px 8px;background:var(--tint-2);color:var(--muted);border:1px solid var(--line)}
+.tag.cat{background:none;border:0;padding:0;color:var(--navy);font-size:.78rem;text-transform:uppercase;letter-spacing:.06em}
+.tag.exam{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tag.known{background:var(--ok-tint);color:var(--ok);border-color:#BFE2CE}
+.tag.starred{background:var(--star-tint);color:var(--star);border-color:#EED7AE}
+.face-label{font-size:.72rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);margin-left:auto}
+.fc-q{font-size:1.32rem;line-height:1.42;font-weight:600;color:var(--ink);margin:6px 0 0;letter-spacing:-.005em}
+.fc-hint{margin:26px 0 0;color:var(--faint);font-size:.86rem}
+.fc-qs{font-size:.92rem;color:var(--muted);margin:0 0 14px;font-weight:500}
+.core{background:var(--tint-2);border:1px solid var(--line);border-left:3px solid var(--navy);border-radius:10px;padding:13px 16px 12px}
+.lbl{font-size:.7rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--navy);margin-bottom:6px}
+.lbl.muted{color:var(--faint)}
+.deep{padding:14px 2px 0;color:#2C3446;font-size:.95rem}
+.src{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line-2);font-size:.82rem;color:var(--muted)}
+.rich p{margin:0 0 7px}
+.rich p:last-child,.rich ul:last-child,.rich ol:last-child{margin-bottom:0}
+.rich ul,.rich ol{margin:2px 0 8px;padding-left:20px}
+.rich li{margin:2px 0}
+.rich strong{color:var(--navy);font-weight:650}
+.core .rich{font-size:1rem}
+sub,sup{font-size:.72em;line-height:0}
+@media (max-width:600px){
+  .fc{padding:18px 18px 20px;min-height:300px}
+  .fc-q{font-size:1.14rem}
+}
+
+.nav{display:grid;grid-template-columns:1fr 1.25fr 1fr;gap:10px;margin-top:16px}
+.actions{display:flex;align-items:center;gap:10px;margin-top:10px}
+.actions .btn{flex:1}
+.pos{flex:none;min-width:84px;text-align:center;font-variant-numeric:tabular-nums;color:var(--muted);font-size:.9rem;font-weight:500}
+.kbd-hint{color:var(--faint);font-size:.8rem;margin:14px 0 0;text-align:center}
+@media (hover:none),(max-width:600px){.kbd-hint{display:none}}
+@media (max-width:520px){.nav{grid-template-columns:58px 1fr 58px}.nav .t{display:none}.nav .btn{padding:12px 8px}}
+
+.empty{border:1px dashed var(--line-2);border-radius:var(--radius);padding:38px 24px;text-align:center;background:var(--tint-2)}
+.empty h3{margin:0 0 6px;color:var(--navy);font-size:1.12rem}
+.empty p{margin:0 auto 16px;color:var(--muted);max-width:440px}
+.empty .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+/* Side + rings */
+.study-side{display:grid;gap:12px}
+@media (max-width:900px){.study-side{grid-template-columns:1fr 1fr}}
+.ringbox{display:flex;align-items:center;gap:14px;border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;background:#fff}
+.ringbox .meta{min-width:0}
+.ringbox .meta b{display:block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:700}
+.ringbox .meta span{display:block;color:var(--navy);font-weight:600;font-size:.93rem;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ringbox .meta small{display:block;color:var(--muted);font-size:.8rem;font-variant-numeric:tabular-nums}
+@media (max-width:600px){.study-side{gap:8px}.ringbox{gap:10px;padding:9px 10px;border-radius:12px}.ringbox .ring,.ringbox .ring svg{width:48px!important;height:48px!important}.ringbox .ring .pct{font-size:11.5px!important}.ringbox .meta b{font-size:.64rem}.ringbox .meta span{font-size:.82rem}.ringbox .meta small{font-size:.74rem}}
+.ring{position:relative;flex:none;display:grid;place-items:center}
+.ring svg{display:block;transform:rotate(-90deg)}
+.ring .trk{stroke:var(--tint)}
+.ring .bar{stroke:var(--navy);transition:stroke-dashoffset .5s ease}
+.ring.full .bar{stroke:var(--ok)}
+.ring .pct{position:absolute;inset:0;display:grid;place-items:center;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+
+/* Progress view */
+.h1{font-size:1.5rem;color:var(--navy);margin:0 0 4px;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:0 0 20px}
+.overview{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;border:1px solid var(--line);border-radius:var(--radius);padding:22px 26px;box-shadow:var(--shadow);margin-bottom:24px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px}
+.stat{background:var(--tint-2);border-radius:10px;padding:12px 14px}
+.stat b{display:block;font-size:1.4rem;color:var(--navy);font-variant-numeric:tabular-nums;line-height:1.2}
+.stat span{font-size:.82rem;color:var(--muted)}
+@media (max-width:640px){.overview{grid-template-columns:1fr;justify-items:center;padding:20px}.stats{width:100%}}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.cat-card{display:flex;gap:14px;align-items:center;border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;background:#fff}
+.cat-card .info{min-width:0;flex:1}
+.cat-card h4{margin:0;font-size:.97rem;color:var(--ink);line-height:1.3}
+.cat-card p{margin:2px 0 8px;font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.cat-card .row{display:flex;gap:6px;flex-wrap:wrap}
+.section-h{font-size:1.08rem;color:var(--navy);margin:34px 0 4px}
+.freq{border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin-top:10px}
+.freq-row{display:grid;grid-template-columns:minmax(150px,240px) 1fr 44px;gap:12px;align-items:center;padding:6px 0;font-size:.9rem}
+.freq-bar{height:10px;border-radius:99px;background:var(--tint);overflow:hidden}
+.freq-bar i{display:block;height:100%;background:var(--navy);border-radius:99px}
+.freq-row b{text-align:right;color:var(--navy);font-variant-numeric:tabular-nums}
+.freq-note{font-size:.84rem;color:var(--muted);margin:12px 0 0}
+@media (max-width:560px){.freq-row{grid-template-columns:1fr 40px}.freq-bar{grid-column:1/-1;order:3}}
+.data-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+
+/* List view */
+.list-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+.search{flex:1 1 260px;position:relative}
+.search input{width:100%;border:1px solid var(--line-2);border-radius:10px;padding:10px 12px 10px 38px;background:#fff}
+.search svg{position:absolute;left:12px;top:50%;width:17px;height:17px;transform:translateY(-50%);color:var(--faint)}
+.sel{border:1px solid var(--line-2);border-radius:10px;padding:10px 12px;background:#fff;max-width:100%}
+.count{font-size:.86rem;color:var(--muted);margin:0 0 10px}
+.tbl-wrap{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+table.tbl{width:100%;border-collapse:collapse;font-size:.92rem}
+.tbl th{text-align:left;font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700;background:var(--tint-2);padding:10px 12px;border-bottom:1px solid var(--line)}
+.tbl td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl tr:last-child td{border-bottom:0}
+.tbl tr.row{cursor:pointer}
+.tbl tr.row:hover td{background:#FAFBFD}
+.tbl tr.open td{background:var(--tint-2)}
+.c-k{width:44px;text-align:center}
+.c-k input{width:18px;height:18px;accent-color:var(--ok);margin:2px 0 0}
+.c-q{font-weight:500;min-width:220px}
+.c-a{color:var(--muted);max-width:320px}
+.clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.c-cat{white-space:nowrap;color:var(--navy);font-size:.84rem}
+.c-src{font-size:.82rem;color:var(--muted);max-width:150px}
+.c-act{width:96px;white-space:nowrap;text-align:right}
+.icon-btn{border:0;background:none;padding:6px;border-radius:7px;color:var(--muted);display:inline-grid;place-items:center}
+.icon-btn:hover{background:var(--tint);color:var(--navy)}
+.icon-btn.del:hover{background:var(--danger-tint);color:var(--danger)}
+.icon-btn svg{width:17px;height:17px}
+.icon-btn.on{color:var(--star)}
+tr.detail td{background:var(--tint-2);padding:4px 16px 16px 56px}
+.detail .core{background:#fff}
+.mini-star{color:var(--star);font-size:.8rem;margin-left:4px}
+@media (max-width:760px){
+  table.tbl thead{display:none}
+  table.tbl,.tbl tbody,.tbl tr,.tbl td{display:block;width:100%}
+  .tbl tr.row{position:relative;padding:12px 12px 10px 46px;border-bottom:1px solid var(--line)}
+  .tbl tr.row td{border:0;padding:0;background:none!important}
+  .tbl tr.open{background:var(--tint-2)}
+  .tbl td.c-k{position:absolute;left:12px;top:13px;width:auto;text-align:left}
+  .tbl td.c-a{display:none}
+  .tbl td.c-cat{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;margin-top:4px;white-space:normal}
+  .tbl tr.row td.c-src{max-width:none;font-size:.78rem;padding-right:112px}
+  .tbl td.c-act{position:absolute;right:6px;bottom:4px;width:auto}
+  .c-q{min-width:0;padding-right:4px!important}
+  tr.detail td{padding:6px 12px 14px 12px}
+}
+
+/* Dialog */
+dialog{border:0;border-radius:16px;padding:0;width:min(640px,calc(100vw - 24px));max-height:calc(100vh - 32px);box-shadow:0 20px 60px rgba(12,28,70,.25);color:var(--ink)}
+dialog::backdrop{background:rgba(12,28,70,.35)}
+.dlg-h{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--line)}
+.dlg-h h3{margin:0;font-size:1.08rem;color:var(--navy)}
+.dlg-b{padding:16px 20px;display:grid;gap:12px;overflow:auto;max-height:calc(100vh - 180px)}
+.dlg-f{display:flex;justify-content:flex-end;gap:10px;padding:14px 20px;border-top:1px solid var(--line);background:var(--tint-2)}
+.field{display:grid;gap:5px}
+.field label{font-size:.8rem;font-weight:600;color:var(--muted)}
+.field input,.field select,.field textarea{border:1px solid var(--line-2);border-radius:9px;padding:9px 11px;background:#fff;width:100%}
+.field textarea{resize:vertical;min-height:70px;line-height:1.5}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:560px){.two{grid-template-columns:1fr}}
+.help{font-size:.78rem;color:var(--faint);margin:0}
+.help code{background:var(--tint);padding:1px 5px;border-radius:4px;font-size:.95em}
+
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;padding:10px 16px;border-radius:10px;font-size:.9rem;opacity:0;pointer-events:none;transition:all .25s;z-index:50;box-shadow:var(--shadow)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.foot{color:var(--faint);font-size:.78rem;text-align:center;margin-top:40px}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-row">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">MTT</div>
+      <div class="brand-text"><b>Materialteknik · Metalldelen</b><span>Tentaplugg MTT085</span></div>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Vyer">
+      <button class="tab" role="tab" data-view="study" aria-selected="true">Plugga</button>
+      <button class="tab" role="tab" data-view="progress" aria-selected="false">Framsteg</button>
+      <button class="tab" role="tab" data-view="list" aria-selected="false">Alla kort</button>
+    </nav>
+    <div class="top-ring" id="topRing" title="Andel kort markerade som Kan"></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- STUDY -->
+  <section class="view" id="view-study" aria-label="Plugga">
+    <div class="chips" id="chips" role="group" aria-label="Kategorier"></div>
+    <div class="study-grid">
+      <div class="study-main">
+        <div class="toolbar">
+          <div class="seg" id="modeSeg" role="group" aria-label="Vilka kort">
+            <button data-mode="unknown" title="Döljer kort du markerat som Kan">Ej kunna</button>
+            <button data-mode="all">Alla</button>
+            <button data-mode="star" title="Bara kort du stjärnmärkt">★ Öva</button>
+          </div>
+          <label class="toggle"><input type="checkbox" id="examOnly"> Endast tentafrågor</label>
+          <span class="spacer"></span>
+          <button class="btn sm ghost" id="shuffleBtn" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+            <span>Blanda</span>
+          </button>
+        </div>
+        <div id="cardArea"></div>
+        <div id="controls">
+          <div class="nav">
+            <button class="btn" id="prevBtn" aria-label="Föregående kort">←<span class="t">&nbsp;Föregående</span></button>
+            <button class="btn primary" id="flipBtn">Visa svar</button>
+            <button class="btn" id="nextBtn" aria-label="Nästa kort"><span class="t">Nästa&nbsp;</span>→</button>
+          </div>
+          <div class="actions">
+            <button class="btn ok" id="knownBtn" aria-pressed="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              <span>Kan</span>
+            </button>
+            <span class="pos" id="pos">–</span>
+            <button class="btn star" id="starBtn" aria-pressed="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9z"/></svg>
+              <span>Öva</span>
+            </button>
+          </div>
+          <p class="kbd-hint">Mellanslag = vänd · ← → = bläddra · K = kan · S = öva · B = blanda</p>
+        </div>
+      </div>
+      <aside class="study-side" aria-label="Framsteg">
+        <div class="ringbox" id="ringCat"></div>
+        <div class="ringbox" id="ringAll"></div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PROGRESS -->
+  <section class="view" id="view-progress" aria-label="Framsteg" hidden>
+    <h1 class="h1">Framsteg</h1>
+    <p class="sub">Andel kort du markerat som <b>Kan</b>. Kort markerade som Kan visas inte i "Ej kunna"-läget förrän du avmarkerar dem.</p>
+    <div class="overview" id="overview"></div>
+    <div class="cat-grid" id="catGrid"></div>
+
+    <h2 class="section-h">Tentaanalys – metalldelen</h2>
+    <p class="sub" style="margin-bottom:0">Hur många av de tio tentorna i kursmappen (2018–2025) som haft ämnet som egen uppgift eller definitionsfråga.</p>
+    <div class="freq" id="freq"></div>
+
+    <h2 class="section-h">Data</h2>
+    <p class="sub" style="margin-bottom:0">Allt sparas lokalt i den här webbläsaren. Exportera för att flytta mellan dator och mobil.</p>
+    <div class="data-row">
+      <button class="btn" id="exportBtn">Exportera (JSON)</button>
+      <button class="btn" id="importBtn">Importera</button>
+      <input type="file" id="importFile" accept="application/json,.json" hidden>
+      <button class="btn danger" id="resetProgressBtn">Nollställ all progress</button>
+      <button class="btn danger" id="resetDeckBtn">Återställ standardkortlek</button>
+    </div>
+  </section>
+
+  <!-- LIST -->
+  <section class="view" id="view-list" aria-label="Alla kort" hidden>
+    <div class="list-tools">
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="q" placeholder="Sök fråga, svar eller källa …" aria-label="Sök">
+      </div>
+      <select class="sel" id="fCat" aria-label="Kategori"></select>
+      <select class="sel" id="fStatus" aria-label="Status">
+        <option value="all">Alla statusar</option>
+        <option value="unknown">Ej kunna</option>
+        <option value="known">Kan</option>
+        <option value="star">★ Öva</option>
+        <option value="exam">Tentafrågor</option>
+      </select>
+      <button class="btn primary" id="addBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        Nytt kort
+      </button>
+    </div>
+    <p class="count" id="count"></p>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th class="c-k" title="Kan">Kan</th><th>Fråga</th><th>Kärnsvar</th><th>Kategori</th><th>Källa</th><th class="c-act"></th></tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <p class="foot">Kortlek byggd från tentor 2018–2025, föreläsningar och egna anteckningar · Framsteg sparas lokalt i webbläsaren</p>
+</main>
+
+<dialog id="dlg">
+  <form method="dialog" id="cardForm">
+    <div class="dlg-h"><h3 id="dlgTitle">Redigera kort</h3><button type="button" class="icon-btn" id="dlgX" aria-label="Stäng"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <div class="dlg-b">
+      <div class="two">
+        <div class="field"><label for="fCatSel">Kategori</label><select id="fCatSel"></select></div>
+        <div class="field"><label for="fType">Typ</label>
+          <select id="fType"><option>Begrepp</option><option>Förklara</option><option>Beräkning</option><option>Metod</option><option>Sant/Falskt</option><option>Flerval</option></select>
+        </div>
+      </div>
+      <div class="field" id="newCatWrap" hidden><label for="fNewCat">Ny kategori</label><input id="fNewCat" placeholder="Namn på ny kategori"></div>
+      <div class="field"><label for="fQ">Fråga (framsida)</label><textarea id="fQ" rows="2" required></textarea></div>
+      <div class="field"><label for="fA">Kärnsvar – det som ger poäng</label><textarea id="fA" rows="4" required></textarea></div>
+      <div class="field"><label for="fD">Fördjupning / formel (valfritt)</label><textarea id="fD" rows="3"></textarea></div>
+      <div class="field"><label for="fS">Källa (valfritt)</label><input id="fS" placeholder="t.ex. 2024-10 1e · 2025-01 3"></div>
+      <p class="help">Formatering: rad som börjar med <code>- </code> blir punktlista, <code>1. </code> numrerad lista, <code>**fet**</code>, <code>σ_{y}</code> nedsänkt, <code>E^{1/2}</code> upphöjt. Källa som börjar med årtal räknas som tentafråga.</p>
+    </div>
+    <div class="dlg-f">
+      <button type="button" class="btn" id="dlgCancel">Avbryt</button>
+      <button type="submit" class="btn primary" id="dlgSave">Spara</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+"use strict";
+const DEFAULT_DECK = [{"cat":"Materialfamiljer & tillverkning","q":"Vad kännetecknar keramer?","t":"Begrepp","s":"2025-10 1f · 2021-10 1c","a":"**Oorganiska** föreningar av (minst) en **metall och en icke-metall** med **jon- eller kovalent bindning** → **hög styvhet**, hög smältpunkt, **sprött** beteende.","d":"Ex: Al₂O₃, SiC, WC, betong, porslin, glas (amorft). Kemiskt stabila, elektriskt/termiskt isolerande, tål tryck mycket bättre än drag.","id":"c01-01"},{"cat":"Materialfamiljer & tillverkning","q":"Vilka materialfamiljer finns?","t":"Begrepp","s":"","a":"**Metaller, keramer (inkl. glas), polymerer (inkl. elastomerer)** och **hybrider** (kompositer, skum, naturmaterial som trä).","d":"","id":"c01-02"},{"cat":"Materialfamiljer & tillverkning","q":"Vad kännetecknar metaller?","t":"Begrepp","s":"","a":"Metallbindning → **elektriskt och termiskt ledande**, hög styvhet, hög sträckgräns, **duktila**, hög densitet. Kan **gjutas, formas plastiskt och maskinbearbetas**.\nAnvänds nästan alltid som **legeringar**: stål = Fe + C, brons = Cu + Sn.","d":"","id":"c01-03"},{"cat":"Materialfamiljer & tillverkning","q":"Mässing?","t":"Begrepp","s":"2025-01 5","a":"En legering av **koppar och zink** (Cu + Zn).","d":"Brons = Cu + Sn. Vanliga mässingslegeringar: 70/30 och 60/40 (% Cu/% Zn).","id":"c01-04"},{"cat":"Materialfamiljer & tillverkning","q":"Vad är en komposit? Ge exempel.","t":"Begrepp","s":"","a":"Kombination av **två eller flera material** (matris + förstärkning) som ger egenskaper inget av dem har ensamt.\nEx: CFRP, GFRP, **betong**, **hårdmetall** (WC + Co).","d":"Förstärkning som långa/korta fibrer eller partiklar. Matris: polymer (PMC), metall (MMC), keram (CMC).","id":"c01-05"},{"cat":"Materialfamiljer & tillverkning","q":"Hur delas tillverkningsprocesserna in?","t":"Begrepp","s":"","a":"- **Primär formning**: gjutning, formsprutning, deformation (valsning, smide), pulvermetallurgi\n- **Sekundära processer**: maskinbearbetning, värmebehandling\n- **Fogning**: svetsning, lödning, limning\n- **Ytbehandling**: polering, beläggning","d":"Processen ändrar inte bara formen utan även egenskaperna (mikrostrukturen).","id":"c01-06"},{"cat":"Materialfamiljer & tillverkning","q":"Definiera sintring.","t":"Begrepp","s":"2024-01 1c","a":"**Pulverpartiklar värms** (oftast **under smältpunkten**) så att de **binds samman genom diffusion** → kompakt, starkt material.","d":"Används för keramer, hårdmetall och pulvermetaller. Drivkraft: minskad ytenergi.","id":"c01-07"},{"cat":"Materialfamiljer & tillverkning","q":"Hur samverkar material, form och process? Ge exempel.","t":"Förklara","s":"","a":"De begränsar varandra **ömsesidigt**: vald form begränsar material och process; vald process begränsar material och form.\nEx: **spröda material kan inte smidas**; ihåliga komplexa former kräver gjutning/formsprutning; Mg och gjutjärn gjuts.","d":"","id":"c01-08"},{"cat":"Materialfamiljer & tillverkning","q":"Vilka typer av polymerer finns (kort, för materialfamiljerna)?","t":"Begrepp","s":"","a":"- **Termoplaster**: långa kedjor, svaga bindningar mellan kedjorna → kan **smältas om**\n- **Härdplaster**: tätt tvärbundet nätverk → kan **inte** omformas\n- **Elastomerer**: glest tvärbundna kedjor → gummi","d":"","id":"c01-09"},{"cat":"Materialval","q":"Redogör för materialvalsprocessens fyra steg enligt Ashby och syftet med varje steg.","t":"Förklara","s":"2025-10 5 · 2018-10 2 · 2025-01 11","a":"1. **Översättning** – designkrav → funktion, krav, mål, fria variabler.\n2. **Sållning** – ta bort material som inte uppfyller kraven (gränsvärden).\n3. **Rangordning** – rangordna kvarvarande material med materialindex.\n4. **Dokumentation** – sök stödjande info om de bäst rankade innan slutligt val.","d":"Stegen itereras ofta. I praktiken börjar man på nivå 1 i Granta EduPack (materialgrupper) och snävar in stegvis (nivå 2–3) – \"material search space\" krymper när fler krav läggs till.\nDokumentation = tillgång, pris, tillverkningsmetod, tidigare erfarenhet (failure analyses), standarder, miljö.","id":"c02-01"},{"cat":"Materialval","q":"Vad menas med en översättning (translation)? Vilka delar består den av och vad används delarna till?","t":"Förklara","s":"2024-08 2a · 2018-10 2 · 2024-10 5","a":"Första steget: produktens designkrav översätts till krav på materialet.\n- **Funktion** – vad komponenten gör (bär last → belastningsfall, t.ex. balk i böjning)\n- **Krav** (constraints) – måste uppfyllas → används för **sållning**\n- **Mål** (objective) – vad som minimeras/maximeras (vikt, pris, CO₂) → **rangordning**\n- **Fria variabler** – vad konstruktören får variera (tvärsnittsarea, tjocklek, material)","d":"Funktion + mål + fria variabler bestämmer tillsammans vilket **materialindex** som ska användas.","id":"c02-02"},{"cat":"Materialval","q":"Placera i översättningstabellen: \"Isolera mot värme\", \"Användningstemperatur\", \"Vikt\", \"Bredd\".","t":"Flerval","s":"2024-10 5","a":"- Funktion: **isolera mot värme** (även t.ex. \"balk i drag\")\n- Krav: **användningstemperatur** (även \"sträckgräns\")\n- Mål: **vikt** (även \"pris per kg\")\n- Fri variabel: **bredd**","d":"Tumregel: krav = ja/nej-gräns som måste klaras; mål = något du vill ha så lite/mycket som möjligt av; fri variabel = geometrisk storhet du får välja.","id":"c02-03"},{"cat":"Materialval","q":"Vad är ett krav i materialvalet? Hur använder man kraven? Ge exempel.","t":"Förklara","s":"2018-10 2a","a":"En materialegenskap som **måste** uppfyllas för att komponenten ska fungera. Kraven används för att **sålla bort** olämpliga material.\nEx: max/min användningstemperatur, elektriskt isolerande, brottseghet, korrosionsbeständighet, formbarhet.","d":"Kraven ritas som gränslinjer i stapeldiagram eller boxar i bubbeldiagram (Granta EduPack).","id":"c02-04"},{"cat":"Materialval","q":"Vad är en målfunktion? Ge exempel på vanliga målfunktioner.","t":"Begrepp","s":"2018-10 2b","a":"Det man vill **optimera** produkten mot – minimera eller maximera.\nEx: vikt (massa), pris, miljöbelastning / CO₂-avtryck, volym.","d":"","id":"c02-05"},{"cat":"Materialval","q":"Vad är ett materialindex, varför använder man det och vad behöver man veta för att välja index?","t":"Förklara","s":"2023-10 2ab · 2024-08 2b · 2025-01 10 · 2018-10 2c","a":"- En **kombination av materialegenskaper** (t.ex. E/ρ, σ_{y}^{2/3}/ρ) som ska maximeras/minimeras för bästa prestanda.\n- Används för att objektivt **rangordna** de material som klarat sållningen.\n- Kräver: **funktion** (belastningsfall), **mål** och **fria variabler**.","d":"Härleds ur prestandaekvationen: skriv målet (t.ex. massa m = ALρ), eliminera den fria variabeln (A) med kravet (styvhet/hållfasthet) → m = (geometri)·(1/M). Materialdelen M separeras ut och gäller oavsett exakta mått.","id":"c02-06"},{"cat":"Materialval","q":"Vad menas med sållning respektive rankning i materialvalsprocessen?","t":"Begrepp","s":"2025-01 11","a":"- **Sållning** (screening): ta bort alla material som inte uppfyller nödvändiga krav (t.ex. temperatur, hållfasthet, korrosion).\n- **Rankning** (ranking): rangordna kvarvarande material efter materialindex (högst M = bäst) → prioriteringslista.","d":"","id":"c02-07"},{"cat":"Materialval","q":"Hur sållar och rangordnar man grafiskt i egenskapsdiagram?","t":"Förklara","s":"","a":"- **Stapeldiagram**: horisontell gränslinje för min/max-värde.\n- **Bubbeldiagram**: box som begränsar två egenskaper samtidigt.\n- **Indexlinje**: diagonal linje för konstant M – flytta den mot \"bättre hörnet\"; material på rätt sida är bäst.","d":"Diagrammen har log-skala, så M = E^{1/n}/ρ blir en rät linje med lutning n i ett log E–log ρ-diagram:\n- E/ρ → lutning 1\n- E^{1/2}/ρ → lutning 2\n- E^{1/3}/ρ → lutning 3","id":"c02-08"},{"cat":"Materialval","q":"Vilket index ska maximeras för en lätt och **styv** dragstång, balk och panel? Och för lätt och **stark**?","t":"Metod","s":"","a":"**Styv** (E):\n- Dragstång: **E/ρ**\n- Balk i böjning (area fri): **E^{1/2}/ρ**\n- Panel (tjocklek fri): **E^{1/3}/ρ**\n**Stark** (σ_{y}):\n- Dragstång: **σ_{y}/ρ**\n- Balk i böjning: **σ_{y}^{2/3}/ρ**\n- Panel: **σ_{y}^{1/2}/ρ**","d":"Tabellen finns på formelbladet – poängen är att välja rätt rad ur funktion + fria variabler.\nMinimera pris: ersätt ρ med C_{m}ρ. Minimera CO₂/energi: ersätt ρ med CO₂·ρ eller H_{m}ρ. Minimera volym: ersätt ρ med 1.","id":"c02-09"},{"cat":"Materialval","q":"Gör ett materialval för framgaffeln till en cykel som ska vara så lätt som möjligt.","t":"Förklara","s":"2018-10 2d","a":"- Funktion: **balk i böjning**\n- Krav: brottseghet, E-modul, kunna formas till lämplig form\n- Mål: **minimera vikt**\n- Fria variabler: material, tvärsnittsarea\n- Index: **M = σ_{y}^{2/3}/ρ** (maximera)\n- Lämpliga material: **kolfiberkomposit (CFRP)**, aluminium","d":"Dimensionera mot plasticering (hållfasthet) eftersom gaffeln inte får böjas permanent vid slag. Ti- och Mg-legeringar är också rimliga kandidater.","id":"c02-10"},{"cat":"Materialval","q":"Gör ett materialval för ett kamerahus.","t":"Förklara","s":"2019-10 2 · 2021-10 2","a":"- Funktion: **panel med utbredd last** (ev. balk i böjning)\n- Krav: E, σ_{y}, brottseghet, användningstemp (ca −50 till 100 °C), formbar till komplex form, maskinbearbetbar med precision\n- Mål: låg vikt (el. pris)\n- Fria variabler: godstjocklek, material\n- Index: **σ_{y}^{1/2}/ρ** → **Mg-legering** (gjutbar, lätt, formstabil)","d":"Tekniska keramer och CFRP rankas högt men faller bort – svåra att forma till komplicerad geometri. Billig kamera → formsprutad termoplast.\nMer att tänka på (2021 2c): miljöbelastning vid tillverkning, återvinningsbarhet, tillverkningsmetod, pris.","id":"c02-11"},{"cat":"Materialval","q":"Varför används kolfiberkomposit, magnesium och verktygsstål inte så mycket, trots att de ofta \"vinner\" i materialvalet? Föreslå alternativ och var de kommer till sin rätt.","t":"Förklara","s":"2022-10 2","a":"- **CFRP**: dyrt, svårtillverkat, begränsade former, svårt att återvinna → sport, flyg. Alternativ: **aluminium**.\n- **Magnesium**: sprött, svårt att forma plastiskt (HCP), korrosion, tål ej hög temp → gjutna lätta detaljer. Alternativ: **aluminium**.\n- **Verktygsstål**: svårt att forma och svetsa, sprött → borrar, skärverktyg, pressverktyg, formar. Alternativ: **låglegerade höghållfasta stål**.","d":"","id":"c02-12"},{"cat":"Materialval","q":"Höghållfast stål är dyrare och har högre CO₂ per kg än vanligt konstruktionsstål. Varför kan det ändå vara både billigare och miljövänligare?","t":"Förklara","s":"2023-10 2c · tentaklassiker","a":"Högre sträckgräns → **mindre tvärsnitt** för samma last → betydligt **lägre massa**. Totalt pris och CO₂ = (per kg) × (massa) blir därför lägre.","d":"I fordon ger lägre vikt dessutom lägre energiförbrukning i användningsfasen – ofta den dominerande fasen.","id":"c02-13"},{"cat":"Materialval","q":"Hur minimerar man pris, CO₂ eller inbäddad energi med samma materialindex som för minsta vikt?","t":"Metod","s":"","a":"Ersätt densiteten ρ med:\n- **C_{m}ρ** → minimera kostnad\n- **H_{m}ρ** → minimera inbäddad energi\n- **CO₂·ρ** → minimera CO₂-avtryck\n- **1** → minimera volym","d":"","id":"c02-14"},{"cat":"Materialval","q":"Hur skiljer sig kraven på materialdata i konceptdesign, primärdesign (embodiment) och detaljdesign?","t":"Förklara","s":"","a":"- **Koncept**: alla material tillgängliga, grov data per materialfamilj.\n- **Primärdesign**: en materialgrupp vald, fåtal material, mer detaljerad data + tillverkningsmetod viktig.\n- **Detaljdesign**: ett specifikt material, mycket detaljerad data (ofta från tillverkaren).","d":"","id":"c02-15"},{"cat":"Materialval","q":"Stål är styvt men tungt, aluminium mindre styvt men lättare. Vad säger det om lätta, styva dragstänger?","t":"Förklara","s":"","a":"Kvoten **E/ρ** är nästan lika för stål och aluminium → en dragstång med given styvhet väger ungefär lika mycket i båda.","d":"Skillnaden syns först för balkar/paneler där indexet är E^{1/2}/ρ eller E^{1/3}/ρ – då vinner de lätta materialen (Al, Mg, CFRP).","id":"c02-16"},{"cat":"Elasticitet & bindningar","q":"Definiera E-modul (elasticitetsmodul).","t":"Begrepp","s":"2025-10 1b","a":"Förhållandet mellan spänning och **elastisk** töjning, σ = Eε. Mått på materialets **styvhet** (motstånd mot elastisk deformation).","d":"Lutningen i det linjära, elastiska området i ett dragprov. Enhet: Pa (oftast GPa).","id":"c03-01"},{"cat":"Elasticitet & bindningar","q":"Vad menas med elastisk respektive plastisk deformation?","t":"Förklara","s":"2024-01 2a · 2022-10 3a","a":"- **Elastisk**: proportionell mot lasten, går helt tillbaka vid avlastning.\n- **Plastisk**: permanent formändring – kvarstår efter avlastning. Sker när spänningen överskrider sträckgränsen.","d":"","id":"c03-02"},{"cat":"Elasticitet & bindningar","q":"Vad händer på mikroskopisk nivå vid elastisk respektive plastisk deformation?","t":"Förklara","s":"2024-01 2c · 2022-10 3b","a":"- **Elastisk**: atombindningarna **sträcks** men bryts inte. Styvheten beror på bindningarnas styvhet och antal bindningar per area.\n- **Plastisk**: **dislokationer glider** längs glidplan; bindningar bryts och återbildas i nya lägen.","d":"","id":"c03-03"},{"cat":"Elasticitet & bindningar","q":"Vilka materialegenskaper beskriver elastisk och plastisk deformation och hur mäts de?","t":"Förklara","s":"2024-01 2b","a":"- Elastisk: **E-modul** (och Poissons tal) – dragprov (lutning) el. dynamiskt.\n- Plastisk: **sträckgräns** R_{p0,2}, **brottgräns** R_{m}, **brottförlängning** – dragprov. Även **hårdhet** (intryckningsprov).","d":"","id":"c03-04"},{"cat":"Elasticitet & bindningar","q":"Vilka mekaniska egenskaper kan bestämmas med ett dragprov?","t":"Förklara","s":"2024-08 5a","a":"- E-modul (lutning i elastiska området)\n- Sträckgräns σ_{y} (R_{p0,2})\n- Brottgräns/draghållfasthet σ_{ts} (R_{m})\n- Brottförlängning ε_{f} (duktilitet)\n- Arbete till brott (arean under kurvan)","d":"Dragprovet ger **inte** brottseghet K_{1c} – provet har ingen spricka.","id":"c03-05"},{"cat":"Elasticitet & bindningar","q":"Vilka mekaniska egenskaper hos en metall kan ändras med legering och process, och vilka inte? Förklara med mekanismerna.","t":"Förklara","s":"2024-08 5b · 2023-10 4a","a":"- **Kan ändras**: sträckgräns, brottgräns, hårdhet, duktilitet, seghet. Styrs av hur lätt **dislokationer** rör sig → kan hindras med lösta atomer, partiklar, korngränser, fler dislokationer.\n- **Kan inte ändras** (nämnvärt): **E-modulen** (och densiteten). Bestäms av **bindningsstyvhet och atompackning**, som legering/värmebehandling knappt påverkar.","d":"Det är skillnaden mellan mikrostrukturkänsliga och mikrostrukturokänsliga egenskaper.","id":"c03-06"},{"cat":"Elasticitet & bindningar","q":"Vilka egenskaper är mikrostrukturokänsliga respektive mikrostrukturkänsliga?","t":"Begrepp","s":"","a":"- **Okänsliga** (bindning + packning): densitet, E-modul, smältpunkt, specifik värmekapacitet, utvidgningskoefficient.\n- **Känsliga** (processberoende): sträckgräns, hårdhet, seghet, brottförlängning, termisk/elektrisk ledningsförmåga.","d":"","id":"c03-07"},{"cat":"Elasticitet & bindningar","q":"Ange de viktigaste typerna av atombindningar, deras egenskaper och i vilka material de finns.","t":"Förklara","s":"2024-01 5a","a":"- **Metallbindning**: fria elektroner (elektronmoln), icke-riktad, ledande → **metaller**\n- **Jonbindning**: elektroner överförs (Δχ > 1,7), stark, icke-riktad, spröd → **keramer** (NaCl, MgO)\n- **Kovalent**: delade elektroner, mycket stark och **riktad** → keramer, diamant, Si, polymerkedjor\n- **Van der Waals / dipol**: svag sekundärbindning → **mellan polymerkedjor**, is","d":"Ungefärlig bindningsenergi: metall 60–850, jon 600–1600, kovalent 100–1200, vdW 7–50 kJ/mol.","id":"c03-08"},{"cat":"Elasticitet & bindningar","q":"Ange tre materialegenskaper som beror på atombindningarna. Förklara.","t":"Förklara","s":"2024-01 5b","a":"- **Smältpunkt** – starkare bindning → högre T_{m}\n- **E-modul** – styvare bindningar → högre E\n- **Termisk utvidgning** – starkare bindning → lägre α\n- **Elektrisk ledningsförmåga** – fria elektroner i metallbindning ger god ledning","d":"","id":"c03-09"},{"cat":"Elasticitet & bindningar","q":"Ungefärligt E-intervall per bindningstyp?","t":"Begrepp","s":"","a":"- Kovalent: 100–1000 GPa (diamant högst)\n- Metallisk: 20–400 GPa\n- Jonisk: 30–400 GPa\n- Van der Waals: 0,5–5 GPa (polymerer)","d":"E ≈ S/a₀ (bindningsstyvhet / atomavstånd).","id":"c03-10"},{"cat":"Elasticitet & bindningar","q":"Definiera Poissons tal och ange typiska värden.","t":"Begrepp","s":"","a":"ν = −ε_{tvär}/ε_{axiell} vid dragbelastning.\n- Metaller ≈ 0,3 · Keramer 0,2–0,3 · Polymerer ≈ 0,4 · Gummi ≈ 0,5","d":"Isotropt material: G = E/(2(1+ν)), K = E/(3(1−2ν)). ν = 0,5 → volymkonstant (K → ∞).","id":"c03-11"},{"cat":"Elasticitet & bindningar","q":"Vilka tre elasticitetsmoduler finns och hur definieras de?","t":"Begrepp","s":"","a":"- **E** (Youngs modul): σ = Eε – drag/tryck\n- **G** (skjuvmodul): τ = Gγ – skjuvning/vridning\n- **K** (kompressionsmodul): p = KΔ – hydrostatiskt tryck","d":"","id":"c03-12"},{"cat":"Elasticitet & bindningar","q":"Definiera isotrop (och anisotrop).","t":"Begrepp","s":"2024-08 1a · 2021-10 1e","a":"**Isotrop**: egenskaperna (E, hållfasthet, värmeledning …) är lika i **alla riktningar**. **Anisotrop**: egenskaperna beror på riktningen.","d":"Enkristaller är anisotropa. Polykristaller med slumpvis orienterade korn blir makroskopiskt isotropa. Anisotropa undantag: texturerad (valsad) plåt, trä (E längs fibrerna upp till 20× högre), fiberkompositer, dragna polymerer.","id":"c03-13"},{"cat":"Elasticitet & bindningar","q":"Vad bestämmer densiteten hos ett material?","t":"Förklara","s":"","a":"**Atomvikt**, **atomstorlek** och **packning**.\n- Packningsgrad: FCC/HCP 0,74 · BCC 0,68 · amorf ≤ 0,64","d":"Därför är metaller med tunga atomer (W, Pb) tätast; polymerer (C, H) ≈ 1000 kg/m³; skum och trä lägst p.g.a. porer.","id":"c03-14"},{"cat":"Elasticitet & bindningar","q":"Hur kan man skapa nya kombinationer av E och ρ? Ge blandningsreglerna.","t":"Metod","s":"","a":"**Kompositer** (blanda material) och **skum** (blanda material med luft).\n- Densitet (exakt): ρ̃ = fρ_{f} + (1−f)ρ_{m}\n- E, övre gräns (fibrer ∥ lasten): fE_{f} + (1−f)E_{m}\n- E, undre gräns (partiklar/tvärs): E_{f}E_{m}/(fE_{m} + (1−f)E_{f})","d":"f = volymfraktion förstärkning, max ca 50 % i praktiken. CFRP/GFRP hamnar mellan polymerer och keramer – nästan lika styva som metaller men mycket lättare.","id":"c03-15"},{"cat":"Elasticitet & bindningar","q":"Hur mäts E-modulen noggrannast, och varför ger dragprovets lutning ofta för lågt värde?","t":"Förklara","s":"","a":"**Dynamiskt**: egenfrekvens hos en balk eller ljudhastighet i materialet – båda ∝ √(E/ρ).\nDragprovets lutning blir för låg p.g.a. **krypning** och **eftergivlighet i provmaskinen** (fel upp till faktor 2).","d":"","id":"c03-16"},{"cat":"Elasticitet & bindningar","q":"Elastisk energi per volymenhet i ett linjärelastiskt material?","t":"Beräkning","s":"","a":"**W = σ²/(2E)** (= ½σε). Frigörs vid avlastning.","d":"Material för fjädrar: maximera σ_{y}²/E.","id":"c03-17"},{"cat":"Elasticitet & bindningar","q":"Ett material är inspänt så att det inte kan expandera i en tvärriktning. Hur ändras den effektiva modulen?","t":"Beräkning","s":"","a":"E_{eff} = **E/(1−ν²)** – alltid större än E.","d":"Störst effekt för gummi (ν ≈ 0,5 → faktor 1,33), försumbar för skum (ν ≈ 0).","id":"c03-18"},{"cat":"Elasticitet & bindningar","q":"Ge tre typer av töjning som inte orsakas av mekanisk spänning.","t":"Begrepp","s":"","a":"- **Termisk töjning**: ε = αΔT\n- **Magnetostriktion**: respons på magnetfält\n- **Piezoelektricitet**: respons på elektriskt fält","d":"Om kroppen hindras att röra sig uppstår spänningar (t.ex. termiska spänningar som får räls att buckla).","id":"c03-19"},{"cat":"Kristallstruktur & Miller-index","q":"Definiera enhetscell.","t":"Begrepp","s":"2024-08 1d · 2025-10 2a","a":"Den **minsta volym** som genom **translation** (upprepad stapling) bygger upp hela kristallstrukturen. Består av ett gitter + atompositioner.","d":"Allmänt fall: triklin cell med 6 parametrar (3 kantlängder = gitterkonstanter, 3 vinklar). 14 Bravaisgitter finns – för metaller räcker FCC, BCC, HCP.","id":"c04-01"},{"cat":"Kristallstruktur & Miller-index","q":"Beskriv enhetscellerna BCC, FCC och HCP (hur känner man igen dem?).","t":"Begrepp","s":"2024-01 4a · 2025-10 2a","a":"- **BCC** (rymdcentrerad kubisk): atom i varje hörn + **en i kubens centrum**\n- **FCC** (ytcentrerad kubisk): atom i varje hörn + **mitt på varje sidoyta**\n- **HCP** (tätpackad hexagonal): sexkantigt prisma, tätpackade lager ABAB","d":"OBS: tentan 2025-10 skrev \"bcc (ytcentrerad kubisk)\" – det är fel benämning. BCC = rymdcentrerad, FCC = ytcentrerad.","id":"c04-02"},{"cat":"Kristallstruktur & Miller-index","q":"Antal atomer per enhetscell och packningsgrad för FCC, BCC och HCP?","t":"Beräkning","s":"","a":"- **FCC**: 8·⅛ + 6·½ = **4** atomer, packning **0,74**\n- **BCC**: 8·⅛ + 1 = **2** atomer, packning **0,68**\n- **HCP** (helt prisma): 12·⅙ + 2·½ + 3 = **6** atomer, packning **0,74**","d":"Hörnatom delas av 8 celler, ytatom av 2, centrumatom räknas hel.","id":"c04-03"},{"cat":"Kristallstruktur & Miller-index","q":"Hur skiljer sig FCC och HCP när man staplar tätpackade lager?","t":"Begrepp","s":"","a":"- **ABABAB…** → **HCP** (tredje lagret rakt ovanför första)\n- **ABCABC…** → **FCC**\nBåda har packningsgrad 0,74. Vilket som bildas styrs av bindningarna, inte geometrin.","d":"","id":"c04-04"},{"cat":"Kristallstruktur & Miller-index","q":"Hur påverkar kristallstrukturen (FCC, BCC, HCP) metallens formbarhet?","t":"Förklara","s":"","a":"- **FCC** (Al, Cu, Ni, austenit): många glidsystem → mycket **duktil**, förblir seg ner till 0 K\n- **BCC** (ferrit, W, Cr): duktil men har **duktil–spröd-övergång** vid låg temp\n- **HCP** (Mg, Zn, Ti): **få glidsystem** → sämre kallformbarhet, anisotrop → gjuts ofta","d":"","id":"c04-05"},{"cat":"Kristallstruktur & Miller-index","q":"Vad betyder parenteserna (hkl), {hkl}, [uvw] och ⟨uvw⟩?","t":"Begrepp","s":"2024-01 4b · 2022-10 6","a":"- **(hkl)** – ett specifikt **plan**\n- **{hkl}** – en **familj** av ekvivalenta plan\n- **[uvw]** – en specifik **riktning**\n- **⟨uvw⟩** – en **familj** av ekvivalenta riktningar","d":"Blandar man parenteserna blir det poängavdrag.","id":"c04-06"},{"cat":"Kristallstruktur & Miller-index","q":"Bulletproof-metod: Miller-index för ett plan (hkl).","t":"Metod","s":"Varje tenta (2–4 p)","a":"1. Kolla axlarnas riktning (x ut mot dig, y höger, z upp).\n2. Går planet genom origo → flytta origo till annat hörn.\n3. Läs av skärningar med x, y, z i cellkanter (parallellt → ∞).\n4. **Invertera**: h = 1/x, k = 1/y, l = 1/z (1/∞ = 0).\n5. Gör till minsta heltal. Negativt → streck över.\n6. Skriv (hkl).","d":"","id":"c04-07"},{"cat":"Kristallstruktur & Miller-index","q":"Bulletproof-metod: riktningsindex [uvw].","t":"Metod","s":"Varje tenta (2–4 p)","a":"1. Flytta vektorn så den startar i origo (eller ta slutpunkt − startpunkt).\n2. Läs av slutpunktens koordinater i cellkanter.\n3. **Ingen invertering.**\n4. Gör till minsta heltal, negativt med streck.\n5. Skriv [uvw].","d":"[111] och [222] är samma riktning (beloppet saknar betydelse). Men för **plan** är (200) ≠ (100) – (200) ligger halvvägs i cellen.","id":"c04-08"},{"cat":"Kristallstruktur & Miller-index","q":"Ett plan skär x = 1, y = 1, z = 1. Miller-index?","t":"Beräkning","s":"2025-10 2b · 2024-10 2a","a":"Inverterat: 1, 1, 1 → **(111)**","d":"Den klassiska diagonala triangeln genom tre hörn i kuben.","id":"c04-09"},{"cat":"Kristallstruktur & Miller-index","q":"Ett plan är parallellt med y och z och skär x = ½. Miller-index?","t":"Beräkning","s":"2025-10 2b · 2024-08 4","a":"Skärningar ½, ∞, ∞ → invertera: 2, 0, 0 → **(200)**","d":"Vertikalt plan halvvägs in i kuben. Får inte förkortas till (100) – (100) är kubens yta.","id":"c04-10"},{"cat":"Kristallstruktur & Miller-index","q":"Ett plan skär x = 1 och y = 1 men är parallellt med z. Miller-index?","t":"Beräkning","s":"2025-01 6","a":"Skärningar 1, 1, ∞ → **(110)**","d":"Diagonalt vertikalt plan genom kuben (snett från kant till kant).","id":"c04-11"},{"cat":"Kristallstruktur & Miller-index","q":"Ett plan skär x = 1, y = 1, z = ½. Miller-index?","t":"Beräkning","s":"2018-10 6a (liknande)","a":"Inverterat: 1, 1, 2 → **(112)**","d":"","id":"c04-12"},{"cat":"Kristallstruktur & Miller-index","q":"Ett plan skär x = ½, y = ⅓ och är parallellt med z. Miller-index?","t":"Beräkning","s":"2024-10 2a (liknande)","a":"Inverterat: 2, 3, 0 → **(230)**","d":"","id":"c04-13"},{"cat":"Kristallstruktur & Miller-index","q":"Ett plan skär x = −1, y = 1, z = 1 (origo flyttat). Miller-index?","t":"Beräkning","s":"2024-10 2a (liknande) · 2018-10 6a (liknande)","a":"Inverterat: −1, 1, 1 → **(1̄11)**","d":"Ett negativt index anges med streck. (1̄11) och (11̄1̄) beskriver samma plan – max ett minustecken behövs.","id":"c04-14"},{"cat":"Kristallstruktur & Miller-index","q":"En riktning går från origo till punkten (0, 1, ½). Riktningsindex?","t":"Beräkning","s":"2018-10 6b (liknande) · 2025-01 7 (liknande)","a":"(0, 1, ½) × 2 → **[021]**","d":"","id":"c04-15"},{"cat":"Kristallstruktur & Miller-index","q":"En riktning går från (1, 0, 0) till (0, 1, 0). Riktningsindex?","t":"Beräkning","s":"2024-10 2b (liknande)","a":"Slut − start = (−1, 1, 0) → **[1̄10]**","d":"","id":"c04-16"},{"cat":"Kristallstruktur & Miller-index","q":"En riktning går från (1, 0, 0) till (0, ½, 1). Riktningsindex?","t":"Beräkning","s":"2018-10 6b (liknande) · 2025-01 7 (liknande)","a":"Slut − start = (−1, ½, 1) × 2 → **[2̄12]**","d":"","id":"c04-17"},{"cat":"Kristallstruktur & Miller-index","q":"Järn (BCC) har atomradien 0,140 nm. Vad är avståndet mellan (001)- och (002)-planen?","t":"Beräkning","s":"2019-10 6b","a":"BCC: atomerna rör varandra längs rymddiagonalen → 4r = a√3 → a = 4·0,140/√3 = **0,323 nm**.\n(002) ligger halvvägs: d = a/2 ≈ **0,16 nm**.","d":"","id":"c04-18"},{"cat":"Kristallstruktur & Miller-index","q":"Hur många plan finns i planfamiljen {200} i en kubisk cell?","t":"Beräkning","s":"2019-10 6c","a":"**3**: (200), (020), (002).","d":"Räknar man även negativa (2̄00) etc. som egna blir det 6 – men de är parallella med samma orientering. Svarsförslaget anger 3.","id":"c04-19"},{"cat":"Kristallstruktur & Miller-index","q":"Formel för teoretisk densitet ur kristallstrukturen?","t":"Beräkning","s":"","a":"**ρ = n·A / (V_{c}·N_{A})**\nn = atomer per cell, A = atommassa (g/mol), V_{c} = cellvolym, N_{A} = Avogadros tal.","d":"Gitterkonstant ur atomradie: FCC a = 2√2·r, BCC a = 4r/√3.","id":"c04-20"},{"cat":"Kristallstruktur & Miller-index","q":"Varför löser austenit (FCC) mycket mer kol än ferrit (BCC)?","t":"Förklara","s":"","a":"FCC har **större interstitiella hål** (oktaederhål) än BCC. Austenit löser upp till **2,1 % C**, ferrit bara ca **0,02–0,035 % C**.","d":"Kol som tvingas in i BCC förvränger gittret kraftigt – det är grunden för martensitens hårdhet och för all värmebehandling av stål.","id":"c04-21"},{"cat":"Kristallstruktur & Miller-index","q":"När har två metaller full löslighet i varandra (isomorft system)? Ge exempel.","t":"Förklara","s":"","a":"Samma **kristallstruktur**, liknande **atomradie** och elektronegativitet/valens – grannar i periodiska systemet.\nEx: **Cu–Ni** (båda FCC).","d":"Pb (FCC) och vitt Sn (tetragonal) har olika struktur och storlek → nästan ingen löslighet → eutektiskt fasdiagram. Kristallstrukturen förklarar alltså diagrammets form.","id":"c04-22"},{"cat":"Kristallstruktur & Miller-index","q":"Definiera glidplan.","t":"Begrepp","s":"2024-08 1e","a":"Det kristallplan där **dislokationer lättast rör sig** och plastisk deformation sker – oftast det **tätast packade** planet, t.ex. {111} i FCC.","d":"Glidning sker i den tätast packade riktningen i planet (⟨110⟩ i FCC). Plan + riktning = glidsystem.","id":"c04-23"},{"cat":"Kristallstruktur & Miller-index","q":"Vad används optiskt mikroskop, SEM och TEM till?","t":"Förklara","s":"","a":"- **Optiskt**: slipade/polerade/etsade ytor → korn och faser\n- **SEM**: hög förstoring + stort skärpedjup → **brottytor**; EDX = kemisk sammansättning, EBSD = kornorientering\n- **TEM**: tunn folie → **dislokationer** syns","d":"","id":"c04-24"},{"cat":"Fasdiagram","q":"Definiera fas.","t":"Begrepp","s":"2022-10 1b","a":"En del av materialet med **samma atomstruktur** och homogena fysikaliska och kemiska egenskaper (samma kristallstruktur och sammansättning).","d":"Ex: ferrit (BCC-Fe), austenit (FCC-Fe), cementit Fe₃C, smälta. Is/vatten/ånga är tre faser av samma ämne.","id":"c05-01"},{"cat":"Fasdiagram","q":"Definiera strukturbeståndsdel.","t":"Begrepp","s":"2022-10 1a","a":"En **urskiljbar del av mikrostrukturen** som kan bestå av **en eller flera faser** och ses som en enhet – t.ex. en primär fas, **eutektikum** eller **perlit** (eutektoid).","d":"Ordet används istället för \"fas\" just för att eutektikum/perlit är två faser samtidigt i fin, regelbunden fördelning.","id":"c05-02"},{"cat":"Fasdiagram","q":"Vad beskriver ett (binärt) fasdiagram?","t":"Begrepp","s":"2024-10 1c · 2024-08 1f","a":"Vilka **jämviktsfaser** som finns vid olika **temperatur och sammansättning**. Binärt = två komponenter (t.ex. Al–Cu), konstant tryck.","d":"Gäller bara vid jämvikt = långsamma förlopp där diffusionen hinner med. Snabbkylning ger icke-jämvikt (martensit, segring, övermättad lösning) som diagrammet inte visar. Diagrammet visar inte heller kornstorlek.","id":"c05-03"},{"cat":"Fasdiagram","q":"Definiera eutektisk reaktion och eutektikum.","t":"Begrepp","s":"2024-10 1a · 2025-01 3","a":"Eutektisk reaktion: **L → α + β** – en smälta omvandlas till **två fasta faser** vid **konstant temperatur och sammansättning**.\nEutektikum: den resulterande fina (ofta lamellära) blandningen av två faser med **lägsta smälttemperaturen** i systemet.","d":"Därför ligger lod (Pb–Sn) och gjutlegeringar (Al–Si) nära eutektisk sammansättning. Lamellerna blir fina eftersom atomerna bara behöver diffundera i sidled.","id":"c05-04"},{"cat":"Fasdiagram","q":"Namnge de fyra trefasreaktionerna.","t":"Begrepp","s":"","a":"- **Eutektisk**: L → α + β\n- **Eutektoid**: γ → α + β (allt fast)\n- **Peritektisk**: L + δ → γ\n- **Peritektoid**: α + β → γ","d":"Eu- = en fas delas i två vid kylning (\"V\"). Peri- = två blir en (\"upp-och-nedvänt V\"). -tektisk = smälta inblandad, -tektoid = bara fasta faser. Alla sker vid konstant temperatur.","id":"c05-05"},{"cat":"Fasdiagram","q":"Vad kännetecknar en intermetallisk förening/fas?","t":"Begrepp","s":"2024-10 1i · 2019-10 1d · 2023-10 1d","a":"En förening av **minst två metaller** med **ordnad struktur** och (nästan) bestämd stökiometri. Ritas som ett lodrätt streck mellan två metaller i fasdiagrammet.","d":"Ex: CuAl₂ (θ), Al₁₂Mg₁₇. Hårda och spröda. Intermediär fas = samma sak men med bredare löslighetsområde.","id":"c05-06"},{"cat":"Fasdiagram","q":"Sant eller falskt om intermetallisk fas: (1) gör metallen spröd och är oftast oönskad, (2) är en förening mellan minst två metaller, (3) kräver fullständig löslighet, (4) kan användas för att utskiljningshärda.","t":"Sant/Falskt","s":"2023-10 1d","a":"1. **Sant** – hårda och spröda\n2. **Sant**\n3. **Falskt** – uppstår tvärtom vid begränsad löslighet\n4. **Sant** – fina partiklar (t.ex. CuAl₂) ger utskiljningshärdning","d":"","id":"c05-07"},{"cat":"Fasdiagram","q":"Definiera metastabil.","t":"Begrepp","s":"2019-10 1c","a":"Ett tillstånd i ett **lokalt energiminimum**. För att nå det stabila tillståndet (lägst G) måste en **energibarriär övervinnas**, oftast med termisk energi.","d":"Ex: martensit, cementit Fe₃C, övermättad fast lösning efter snabbkylning. Instabil fas = omvandlas av sig själv; metastabil = behöver aktiveringsenergi.","id":"c05-08"},{"cat":"Fasdiagram","q":"Vad innebär segring?","t":"Begrepp","s":"2024-10 1h","a":"**Ojämn fördelning av legeringsämnen** efter stelning. Det som stelnar först är renare än smältan → kärnan i kornet ren, kanter/korngränser mer legerade.","d":"Minskas men elimineras inte av homogenisering (värmebehandling). Föroreningar samlas i korngränser och kan bilda spröda faser – t.ex. S i stål, löses med Mn (bildar MnS).","id":"c05-09"},{"cat":"Fasdiagram","q":"Definiera liquidus, solidus och solvus.","t":"Begrepp","s":"","a":"- **Liquidus**: gränsen ovanför vilken allt är smält\n- **Solidus**: gränsen under vilken allt är fast\n- **Solvus**: löslighetsgränsen mellan två fasta faser","d":"Mellan liquidus och solidus: tvåfasområde L + fast. En legering smälter över ett intervall, en ren metall vid en temperatur.","id":"c05-10"},{"cat":"Fasdiagram","q":"Vad avgör vilken fas som är stabil? (Gibbs fria energi)","t":"Förklara","s":"","a":"**G = H − TS**. Materialet intar den fas som har **lägst G** vid aktuell temperatur.","d":"T·S-termen växer med temperaturen → oordnade faser (smälta, FCC) vinner vid hög T. Vid fasövergång avges/upptas latent värme.","id":"c05-11"},{"cat":"Fasdiagram","q":"Bulletproof-metod: läs av ett binärt fasdiagram (faser, sammansättning, andel).","t":"Metod","s":"Varje tenta (5–7 p)","a":"1. **Konstitutionspunkt**: lodrät linje från C₀, vågrät från T.\n2. **Antal faser**: enfasområde → fasen har C₀ och 100 %. Klart.\n3. Tvåfasområde → **tie-line** (konod) vågrätt till närmaste fasgränser. Ändpunkterna ger faserna och deras sammansättningar C_{α}, C_{β}.\n4. **Hävstångsregeln** för andelarna.","d":"Läs C_{α} och C_{β} på x-axeln – inte C₀. Mellan två lodräta streck (intermetaller) gäller samma regel.","id":"c05-12"},{"cat":"Fasdiagram","q":"Skriv hävstångsregeln (lever rule).","t":"Beräkning","s":"","a":"**W_{β} = (C₀ − C_{α}) / (C_{β} − C_{α})**\n**W_{α} = (C_{β} − C₀) / (C_{β} − C_{α})**","d":"Avståndet till den **motsatta** fasgränsen ger andelen. W_{α} + W_{β} = 1. Samma formel för strukturbeståndsdelar (t.ex. primär fas + eutektikum, ferrit + perlit).","id":"c05-13"},{"cat":"Fasdiagram","q":"Varför får en avsvalningskurva platåer och knän?","t":"Förklara","s":"2021-10 4 · 2018-10 4a","a":"Vid fasomvandling **frigörs latent värme** som bromsar avsvalningen.\n- **Platå** (konstant T): ren metall och eutektisk/eutektoid reaktion\n- **Knä** (lägre lutning): tvåfasområde mellan liquidus och solidus","d":"Utan fasomvandling styrs kurvan bara av värmeledning (jämn avsvalning).","id":"c05-14"},{"cat":"Fasdiagram","q":"Pb–Sn: tre avsvalningskurvor – (a) en platå vid 232 °C, (b) bara en platå vid 183 °C, (c) knä vid ca 300 °C och knä vid ca 230 °C, ingen platå. Vilka legeringar?","t":"Beräkning","s":"2021-10 4","a":"- (a) **100 % Sn** – platå vid Sn:s smältpunkt\n- (b) **61,9 % Sn** – eutektisk sammansättning, L → α + β vid 183 °C\n- (c) **≈ 12 % Sn** – stelnar i tvåfasområdet L + α till enfas α, ingen eutektisk platå","d":"Svarsförslaget skriver 69,1 % för (b) – det är en sifferomkastning; eutektikum i Pb–Sn ligger vid 61,9 % Sn.","id":"c05-15"},{"cat":"Fasdiagram","q":"Pb–Sn: legering 80 % Sn stelnar. Strukturbeståndsdelar vid **200 °C**? (Eutektikum 61,9 % Sn/183 °C, β max 97,8 % Sn.)","t":"Beräkning","s":"2024-10 3a","a":"Tvåfasområde **L + β**. Tie-line: C_{L} ≈ 75 % Sn, C_{β} ≈ 98 % Sn.\nW_{L} = (98 − 80)/(98 − 75) ≈ **78 % smälta**, **22 % β**.","d":"","id":"c05-16"},{"cat":"Fasdiagram","q":"Pb–Sn: legering 80 % Sn. Strukturbeståndsdelar vid **150 °C** och vid **20 °C**?","t":"Beräkning","s":"2024-10 3bc","a":"Primär **β** + **eutektikum** – båda temperaturerna:\nW_{eut} = (97,8 − 80)/(97,8 − 61,9) ≈ **50 % eutektikum**, **50 % β**.","d":"Fälla: strukturbeståndsdelarna ändras inte under eutektisk temperatur – bara sammansättningen inom faserna (solvus). Frågar de om **faser** vid 20 °C blir svaret istället α ≈ 20 %, β ≈ 80 %.","id":"c05-17"},{"cat":"Fasdiagram","q":"Cu–Ag: legering 80 % Cu / 20 % Ag. Eutektikum 71,9 % Ag vid 779 °C, α max 8,0 % Ag, β 91,2 % Ag. (a) Andel eutektikum? (b) Vilka faser i eutektikumet och deras andel? (c) När är legeringen helt stelnad?","t":"Beräkning","s":"2018-10 4","a":"a) W_{eut} = (20 − 8,0)/(71,9 − 8,0) ≈ **19 %**\nb) **α + β**. W_{β} = (71,9 − 8,0)/(91,2 − 8,0) ≈ **77 %** β, 23 % α\nc) Vid **779 °C**. Vid fortsatt avsvalning sjunker lösligheten (solvus) → **β-utskiljningar i α**.","d":"Svarsförslaget anger \"andelen β är 71,9 %\" – det är eutektikumets Ag-halt, inte β-andelen. Räkna med hävstångsregeln.\nAvsvalningskurva: knä vid liquidus (~1000 °C), platå vid 779 °C, sedan jämn avsvalning.","id":"c05-18"},{"cat":"Fasdiagram","q":"Sn–Bi: eutektikum vid 57 % Bi och 139 °C, (βSn) max 21 % Bi. Viktsandel eutektikum för en legering med 40 % Bi?","t":"Beräkning","s":"2025-10 4b","a":"W_{eut} = (40 − 21)/(57 − 21) = 19/36 ≈ **52 %**","d":"","id":"c05-19"},{"cat":"Fasdiagram","q":"Fe–C: stål med 0,40 % C vid 750 °C. Vilka strukturbeståndsdelar och vilken massandel austenit?","t":"Beräkning","s":"2025-10 3a","a":"Tvåfasområde **ferrit + austenit** (α + γ).\nC_{α} ≈ 0,02 % C, C_{γ} ≈ 0,6 % C → W_{γ} = (0,40 − 0,02)/(0,6 − 0,02) ≈ **66 % austenit**, resten ferrit.","d":"","id":"c05-20"},{"cat":"Fasdiagram","q":"Al–Cu: en legering med 5 % Cu utskiljningshärdas (545 °C → snabbkylning → 200 °C → jämvikt vid rumstemp). (a) Strukturbeståndsdelar vid 545 °C? (b) Efter värmebehandlingen? (c) Max Cu utan eutektikum?","t":"Beräkning","s":"2025-01 8","a":"a) **100 % α (Al)** med 5 % Cu (enfasområde)\nb) **α** med ≈ 0 % Cu + **CuAl₂ (θ)** med ≈ 54 % Cu: W_{θ} = 5/54 ≈ **8–9 %**, α ≈ 92 %\nc) Max löslighet vid eutektisk temp (548 °C): **≈ 5,5–5,65 % Cu**","d":"Över maxlösligheten finns smälta kvar vid 548 °C som stelnar som eutektikum (33 % Cu).","id":"c05-21"},{"cat":"Fasdiagram","q":"Al–Cu: välj en legering som kan utskiljningshärdas (mycket utskiljningar men inget eutektikum), beskriv värmebehandlingen och ange andelen utskiljningar.","t":"Beräkning","s":"2024-08 3","a":"a) Strax **under maxlösligheten 5,65 % Cu**, t.ex. **4–5 % Cu** → helt lösbar i α, inget eutektikum.\nb) 1. **Lösningsbehandling** ~500–550 °C → enfas α\n2. **Snabbkylning** → övermättad α (metastabil)\n3. **Åldring** 150–200 °C → fina CuAl₂-utskiljningar\nc) 4 % Cu: W_{θ} ≈ 4/54 ≈ **7 %** CuAl₂","d":"Svarsförslaget skriver ~3 % – hävstångsregeln mellan α (~0 % Cu) och θ (~54 % Cu) ger ~7 % för 4 % Cu. Räkna själv på tentan och visa hävstången.","id":"c05-22"},{"cat":"Fasdiagram","q":"Mg–Al: välj sammansättning (hög σ_{y}, inget eutektikum), värmebehandling och andel utskiljningar. (Max löslighet ~13 % Al, α ~1 % Al vid rumstemp, Al₁₂Mg₁₇ ~43 % Al.)","t":"Beräkning","s":"2019-10 4","a":"a) Max **13 % Al** utan eutektikum → välj **~10 % Al**\nb) 1. Upplösning 430–437 °C → enfas α-Mg\n2. Snabbkylning → metastabil övermättad α\n3. Åldring 200–300 °C → Al₁₂Mg₁₇-utskiljningar\nc) I Mg-halt: (99 − 90)/(99 − 57) ≈ **21 %** utskiljningar","d":"","id":"c05-23"},{"cat":"Fasdiagram","q":"Ti-6Al-4V: andel α vid 800 °C om legeringen har 4 % V, α innehåller 2,5 % V och β 13,5 % V. Beskriv även mikrostrukturbildningen.","t":"Beräkning","s":"2021-10 5bc","a":"W_{α} = (13,5 − 4)/(13,5 − 2,5) ≈ **86 % α**, 14 % β.\nÖver ~1000 °C: 100 % β. In i tvåfasområdet → α kärnbildas och växer vid fortsatt avsvalning → slutlig struktur α + β.","d":"Under 800 °C är diffusionen för långsam för fler förändringar.","id":"c05-24"},{"cat":"Fasdiagram","q":"Vad är skillnaden mellan intermetallisk och intermediär fas?","t":"Begrepp","s":"","a":"- **Intermetallisk**: nära stökiometrisk sammansättning, nästan ingen löslighet → lodrätt streck (Fe₃C, CuAl₂)\n- **Intermediär**: bredare enfasband (viss löslighet), t.ex. faserna i mässing (Cu–Zn)","d":"Varje streck/band är ett eget enfasområde; mellan dem tvåfasområden → hävstångsregeln fungerar som vanligt.","id":"c05-25"},{"cat":"Fasdiagram","q":"Vad styr kornstorleken vid stelning, och varför vill man ha fina korn?","t":"Förklara","s":"","a":"Styrs av **kylhastighet** och **kärnbildning** (inte fasdiagrammet). Snabb kylning + tillsatta partiklar (ympning) → många kärnor → **fina korn**.\nFina korn ger **högre hållfasthet och seghet** (korngränshärdning).","d":"Textur (riktade korn) kan ge anisotropi.","id":"c05-26"},{"cat":"Stål & värmebehandling","q":"Ange de viktigaste punkterna och faserna i järn–kol-diagrammet.","t":"Begrepp","s":"","a":"- **Ferrit α** (BCC): max ≈ 0,02–0,035 % C\n- **Austenit γ** (FCC): max **2,1 % C** (1147 °C)\n- **Cementit Fe₃C**: **6,7 % C** (25 at-%)\n- **Eutektoid**: **0,8 % C** (0,76), **723 °C**: γ → α + Fe₃C = perlit\n- **Eutektikum**: 4,3 % C, 1147 °C (gjutjärn)","d":"Rent järn: α under 910 °C, γ 910–1391 °C, δ till smältpunkten ~1536 °C. Peritektikum vid ~0,2 % C högst upp.","id":"c06-01"},{"cat":"Stål & värmebehandling","q":"Vad är perlit?","t":"Begrepp","s":"","a":"En **strukturbeståndsdel** av **omväxlande lameller av ferrit och cementit**, bildad genom eutektoid omvandling γ → α + Fe₃C vid **723 °C** vid långsam kylning.","d":"Exakt 0,8 % C ger 100 % perlit. Finare lameller (snabbare kylning) → hårdare.","id":"c06-02"},{"cat":"Stål & värmebehandling","q":"Beskriv mikrostrukturen i normaliserat stål under, vid och över 0,8 % C.","t":"Förklara","s":"","a":"- **< 0,8 % C** (undereutektoidiskt): primär **ferrit + perlit** – vanligt konstruktionsstål\n- **0,8 % C**: **100 % perlit**\n- **> 0,8 % C** (övereutektoidiskt): **perlit + cementit** som nät i korngränserna → hårt men sprött","d":"Mer kol → högre hållfasthet och hårdhet, lägre seghet och sämre svetsbarhet.","id":"c06-03"},{"cat":"Stål & värmebehandling","q":"Vilken roll har kol för stålets egenskaper?","t":"Begrepp","s":"2024-10 1g","a":"Kol **ökar hårdhet och hållfasthet** men **minskar duktilitet** (och svetsbarhet).","d":"","id":"c06-04"},{"cat":"Stål & värmebehandling","q":"Andel perlit i ett normaliserat stål med 0,6 % C?","t":"Beräkning","s":"2024-01 3a","a":"W_{perlit} = (0,6 − 0,02)/(0,8 − 0,02) ≈ **74 % perlit**, **26 % ferrit**.","d":"Andelen perlit ökar linjärt med kolhalten upp till 0,8 % C. Med diagrammets värden 0,022/0,76 blir det ≈ 78 % perlit – använd siffrorna i det diagram som ges. Svarsförslaget 2024-01 har skrivit andelarna omvänt (25 % perlit) – det stämmer inte.","id":"c06-05"},{"cat":"Stål & värmebehandling","q":"Ett stål med 0,6 % C ska bli **relativt mjukt**. Vad heter värmebehandlingen, vilka steg ingår och vilken struktur fås?","t":"Förklara","s":"2024-01 3a","a":"**Glödgning / normalisering**:\n1. Värm över A₃ till austenitområdet (~800 °C)\n2. Håll tills allt är austenit\n3. **Långsam** kylning (ugn = glödgning, luft = normalisering)\n→ **ferrit + perlit** (≈ 26 % ferrit, 74 % perlit). Mjukt och segt.","d":"","id":"c06-06"},{"cat":"Stål & värmebehandling","q":"Ett stål med 0,6 % C ska få **hög hårdhet**. Vad heter värmebehandlingen, vilka steg och vilken struktur?","t":"Förklara","s":"2024-01 3b · 2024-10 4","a":"**Härdning**:\n1. Austenitisera (värm till austenitområdet, håll)\n2. **Snabbkyl** (släck i vatten/olja) förbi perlitnosen till under M_{f}\n3. (Anlöp för att minska sprödheten)\n→ **martensit** (≈ 100 %), ev. anlöpt martensit. Mycket hårt men sprött.","d":"","id":"c06-07"},{"cat":"Stål & värmebehandling","q":"Definiera normalisering av stål.","t":"Begrepp","s":"2025-10 1h","a":"Värmning till **austenitområdet** följt av **luftkylning** → jämn, **finkornig ferrit + fin lamellär perlit**. God kombination av hållfasthet och seghet.","d":"","id":"c06-08"},{"cat":"Stål & värmebehandling","q":"Definiera mjukglödgning.","t":"Begrepp","s":"2019-10 1e · 2024-10 4c","a":"Långvarig värmning **strax under 723 °C** (utan att bilda austenit) → cementiten samlas i **stora runda partiklar** (sfäroidiserad perlit) i ferrit.\nGer **mjukt stål** som är lätt att maskinbearbeta – görs före bearbetning och slutlig härdning.","d":"","id":"c06-09"},{"cat":"Stål & värmebehandling","q":"Vad är martensit och hur bildas den?","t":"Begrepp","s":"","a":"**Snabbkylning** av austenit → kolet hinner inte diffundera ut → **diffusionslös** omvandling FCC → förvrängd **BCT** som är övermättad på kol.\nMycket **hård men spröd**, metastabil.","d":"Bildas mellan M_{s} (start) och M_{f} (finish). Andelen beror bara på hur lågt man kyler, inte på tiden.","id":"c06-10"},{"cat":"Stål & värmebehandling","q":"Vad är anlöpning och varför gör man det?","t":"Begrepp","s":"","a":"Värmning av martensit (ca 150–650 °C) → **fina Fe₃C-utskiljningar** bildas, gitterspänningen minskar → **segheten återställs**, hårdheten sjunker något.\nAnlöpningstemperaturen väljer balansen hårdhet ↔ seghet.","d":"Anlöpt martensit vid 500–600 °C har ändå 2–3× högre sträckgräns än normaliserat stål.","id":"c06-11"},{"cat":"Stål & värmebehandling","q":"Definiera TTT-diagram.","t":"Begrepp","s":"2018-10 1a · 2019-10 1g","a":"Ett diagram som visar **fastransformationer som funktion av tid och temperatur** vid konstant (isoterm) temperatur – start/slut för perlit och bainit samt M_{s}/M_{f} för martensit.","d":"","id":"c06-12"},{"cat":"Stål & värmebehandling","q":"Vad visar ett TTT-diagram **inte**?","t":"Flerval","s":"2024-10 4b","a":"**Hur mycket av perliten som kan omvandlas till martensit** – perlit blir aldrig martensit utan ny austenitisering.","d":"Det visar däremot: hur snabbt man måste kyla för martensit (förbi nosen), tiden för att bilda stabila faser, och till vilken temperatur man måste kyla (M_{s}, M_{f}).","id":"c06-13"},{"cat":"Stål & värmebehandling","q":"TTT, eutektoidiskt stål: hur får man 50 % perlit + 50 % martensit?","t":"Flerval","s":"2024-10 4a","a":"**Snabbkyl till ~600 °C, håll ~8 s** (till 50 %-linjen för perlit), **snabbkyl till rumstemperatur** → kvarvarande austenit blir martensit.","d":"Fel alternativ: hålla 10 s vid 600 °C ger ~100 % perlit; hålla vid eutektoid temperatur ger ingen omvandling på sekunder.","id":"c06-14"},{"cat":"Stål & värmebehandling","q":"Två mikroskopbilder av samma eutektoida stål: (a) runda cementitpartiklar i ferrit, (b) lamellär struktur. Vilka värmebehandlingar? Vilken har mest ferrit?","t":"Flerval","s":"2024-10 4cd","a":"(a) **mjukglödgat**, (b) **normaliserat** (perlit).\nBåda har **samma andel ferrit** – samma kolhalt och samma faser (ferrit + cementit), bara formen skiljer.","d":"","id":"c06-15"},{"cat":"Stål & värmebehandling","q":"Verktygsstål 1,4 % C: (a) 800 °C, jämvikt – faser, andelar, kolhalt? (b) snabbkylning? (c) anlöpning 250 °C?","t":"Beräkning","s":"2023-10 3","a":"a) **Austenit** (~1,0 % C) **93 %** + **cementit** (6,7 % C) **7 %**: W_{cem} = (1,4 − 1,0)/(6,7 − 1,0) ≈ 0,07\nb) Austenit → **martensit**: 93 % martensit (1,0 % C) + 7 % cementit\nc) Martensit → **anlöpt martensit** (ferrit + fin cementit) + 7 % grov cementit. Totalt i faser: ferrit (~0 % C) ≈ 79 %, cementit (6,7 % C) ≈ 21 %.","d":"Austenitens kolhalt vid 800 °C läses på A_{cm}-linjen (~1,0 %).","id":"c06-16"},{"cat":"Stål & värmebehandling","q":"Dual-phase-stål 0,15 % C: (1) värm till 870 °C, (2) sänk långsamt till 730 °C, (3) valsa vid 730 °C, (4) snabbkyl. Faser och andelar efter varje steg?","t":"Beräkning","s":"2022-10 4","a":"1. **100 % austenit**, 0,15 % C\n2. **Ferrit** (0,022 % C) + **austenit** (0,76 % C): W_{γ} = (0,15 − 0,022)/(0,76 − 0,022) ≈ **17 %**\n3. Kornen **förlängs i valsriktningen**\n4. Austenit → **martensit**: **83 % ferrit + 17 % martensit** (0,76 % C)","d":"Bandad struktur: mjuk ferrit ger formbarhet (pressning), hård martensit ger hög sträckgräns.","id":"c06-17"},{"cat":"Stål & värmebehandling","q":"Vad är härdbarhet och vad påverkar den?","t":"Begrepp","s":"","a":"Hur **djupt martensit bildas** vid en given kylhastighet.\nLegeringsämnen (**Ni, Cr, Mo, Mn**) fördröjer perlitbildningen → nosen flyttas åt höger → martensit även vid långsammare kylning och i grövre gods.","d":"","id":"c06-18"},{"cat":"Stål & värmebehandling","q":"Varför legerar man stål? Ge exempel på legeringsämnen och effekt.","t":"Förklara","s":"","a":"- Öka **härdbarheten** (Ni, Cr, Mo, Mn)\n- Bilda **stabila karbider** – hårdhet, slitstyrka, varmhållfasthet (Cr, Mo, V, W) → verktygsstål\n- **Cr > 12 %** → skyddande kromoxid → rostfritt\n- **Ni, Mn** stabiliserar austenit vid rumstemperatur\n- Lösningshärda ferriten","d":"","id":"c06-19"},{"cat":"Stål & värmebehandling","q":"Vilka typer av rostfritt stål finns?","t":"Begrepp","s":"","a":"- **Ferritiska** (Cr, BCC) – billigast\n- **Austenitiska** (Cr + Ni, FCC) – bäst korrosionsmotstånd, sega även vid låg temp\n- **Martensitiska** – kan härdas (knivar, verktyg)","d":"","id":"c06-20"},{"cat":"Stål & värmebehandling","q":"Grov indelning av stål efter legering och kolhalt?","t":"Begrepp","s":"","a":"- **Olegerade kolstål**: konstruktionsstål (låg C, svetsbara), maskinstål 0,25–0,75 % C (härdbara)\n- **Låglegerade stål**: höghållfasta, härdbara\n- **Höglegerade stål**: rostfria, verktygsstål (0,5–1,7 % C med stabila karbider)","d":"","id":"c06-21"},{"cat":"Stål & värmebehandling","q":"Gjutjärn: kolhalt, varför gjutbart, gråjärn vs segjärn?","t":"Förklara","s":"","a":"**2–4 % C** → nära eutektikum (4,3 %) → låg smältpunkt, god gjutbarhet.\n- **Gråjärn**: grafit som **fjäll** → verkar som sprickor → sprött, bra vibrationsdämpning, billigt\n- **Segjärn**: **sfärisk** grafit → betydligt segare (maskindelar, stativ)","d":"","id":"c06-22"},{"cat":"Plasticitet & härdning","q":"Vad beskriver sträckgränsen?","t":"Begrepp","s":"2025-10 1a","a":"Den spänning då materialet **börjar deformeras plastiskt**.","d":"Metaller: offsetmetoden R_{p0,2} (0,2 % kvarstående töjning). Polymerer ~1 %, kompositer ~0,5 %. Keramer når aldrig sträckgränsen i drag – de spricker först.","id":"c07-01"},{"cat":"Plasticitet & härdning","q":"Vad innebär duktilitet?","t":"Begrepp","s":"2024-10 1b","a":"Ett materials förmåga att **deformeras plastiskt utan att spricka**. Mäts som brottförlängning ε_{f} (%).","d":"","id":"c07-02"},{"cat":"Plasticitet & härdning","q":"Definiera brottförlängning.","t":"Begrepp","s":"2021-10 1b","a":"Den **plastiska (kvarstående) förlängningen** efter att materialet belastats till brott, i % av ursprunglig längd.","d":"","id":"c07-03"},{"cat":"Plasticitet & härdning","q":"Definiera hårdhet. Hur mäts den och vad är fördelen?","t":"Begrepp","s":"2025-01 4","a":"Ett mått på materialets **motstånd mot plastisk deformation** (intryckning): H = F/A_{intryck}.","d":"Diamant- eller kulformad intryckskropp med bestämd last; storleken på intrycket ger H. Brinell och Rockwell i industrin, Vickers i forskning – ange alltid skala (t.ex. HV30). Fördel: liten volym, på färdig komponent, nästan oförstörande. H ≈ 3σ_{y}.","id":"c07-04"},{"cat":"Plasticitet & härdning","q":"Vad är skillnaden mellan teknisk och sann spänning/töjning? Varför vänder den tekniska kurvan nedåt?","t":"Förklara","s":"","a":"- Teknisk: σ_{e} = F/A₀, ε_{e} = Δl/l₀\n- Sann: σ_{t} = F/A, ε_{t} = ln(l/l₀) = ln(1 + ε_{e}); σ_{t} = σ_{e}(1 + ε_{e}) (volymkonstans)\nDen tekniska kurvan vänder efter brottgränsen bara för att **arean minskar (midjebildning)** – materialet blir inte svagare, den sanna kurvan fortsätter uppåt.","d":"","id":"c07-05"},{"cat":"Plasticitet & härdning","q":"Beskriv vad som händer när en metall deformeras plastiskt.","t":"Förklara","s":"2025-01 12a · 2022-10 3b","a":"När skjuvspänningen på ett glidplan blir tillräckligt hög börjar **dislokationer glida** längs **glidplanen** (tätpackade plan/riktningar). Atomplanen förskjuts stegvis → **permanent formändring**.\nNya dislokationer bildas → **dislokationstätheten ökar** → metallen **deformationshårdnar**.","d":"Bara bindningarna längs dislokationslinjen bryts och återbildas – inte alla bindningar i planet samtidigt.","id":"c07-06"},{"cat":"Plasticitet & härdning","q":"Varför är verkliga metallers hållfasthet bara en bråkdel av den ideala?","t":"Förklara","s":"","a":"**Dislokationer**: för att en dislokation ska röra sig behöver bara bindningarna längs linjen brytas, inte hela planet samtidigt → kräver en bråkdel av ideal hållfasthet.","d":"Keramer har högt gittermotstånd → dislokationerna rör sig inte → hållfastheten styrs istället av sprickor → spröda. Utan rörliga dislokationer vore metaller spröda som keramer.","id":"c07-07"},{"cat":"Plasticitet & härdning","q":"Sant eller falskt om dislokationer: (1) rör sig p.g.a. skjuvspänningar, (2) finns i kristallina men inte amorfa material, (3) viktiga för sträckgränsen men påverkar inte hårdheten, (4) finns i FCC och BCC men inte HCP.","t":"Sant/Falskt","s":"2023-10 1c","a":"1. **Sant**\n2. **Sant** – kräver ordnad kristallstruktur\n3. **Falskt** – hårdhet = motstånd mot plastisk deformation, styrs också av dislokationer\n4. **Falskt** – HCP har färre glidsystem men har dislokationer","d":"","id":"c07-08"},{"cat":"Plasticitet & härdning","q":"Beskriv kantdislokation och skruvdislokation.","t":"Begrepp","s":"","a":"- **Kantdislokation**: ett **extra halvplan** av atomer; glidvektorn **b ⊥** dislokationslinjen\n- **Skruvdislokation**: övre delen förskjuten parallellt med snittkanten; **b ∥** dislokationslinjen","d":"Varje passerande dislokation ger förskjutningen b. Dislokationer drivs av skjuvspänning, inte normalspänning.","id":"c07-09"},{"cat":"Plasticitet & härdning","q":"Vilka kristallina defekter finns? Ge exempel.","t":"Begrepp","s":"","a":"- **Punktdefekter**: vakans (tom plats – styr diffusion), substitutionell löst atom (Ni i Cu), interstitiell löst atom (C i Fe)\n- **Linjedefekt**: dislokation (kant/skruv)\n- **Ytdefekt**: korngräns","d":"Lösta atomer har fel storlek → spänningsfält som bromsar dislokationer → lösningshärdning.","id":"c07-10"},{"cat":"Plasticitet & härdning","q":"Beskriv fyra mekanismer som försvårar plasticering (härdningsmekanismer).","t":"Förklara","s":"2025-01 12b · 2018-10 5 · tentaklassiker","a":"Alla **försvårar dislokationsrörelse**:\n- **Lösningshärdning**: lösta atomer förvränger gittret → spänningsfält bromsar dislokationer\n- **Utskiljningshärdning**: fina, tätt fördelade partiklar som dislokationer måste skära eller böja sig runt\n- **Deformationshärdning**: fler dislokationer som trasslar in sig och låser varandra\n- **Korngränshärdning**: mindre korn → fler korngränser som stoppar dislokationer","d":"Bidragen adderas: σ_{y} = σ_{i} + σ_{ss} + σ_{ppt} + σ_{wh} + σ_{gb}. Höjer σ_{y} men sänker ofta duktiliteten. Ändrar inte E-modulen. För stål tillkommer martensithärdning.","id":"c07-11"},{"cat":"Plasticitet & härdning","q":"Sant eller falskt om härdningsmekanismerna: (1) bara av intresse för legerade metaller, (2) alla syftar till att försvåra dislokationsrörelse, (3) alla utom korngränshärdning försvårar dislokationsrörelse – där förstärker man korngränserna, (4) ändrar normalt inte E-modulen.","t":"Sant/Falskt","s":"2023-10 4a","a":"1. **Falskt** – deformations- och korngränshärdning fungerar på rena metaller\n2. **Sant**\n3. **Falskt** – korngränser hindrar också dislokationer\n4. **Sant**","d":"","id":"c07-12"},{"cat":"Plasticitet & härdning","q":"Sant eller falskt om lösningshärdning: (1) ökar sträckgränsen men inte brottgränsen, (2) kräver legering, (3) kan kombineras med deformationshärdning, (4) kräver värmebehandling.","t":"Sant/Falskt","s":"2023-10 4b","a":"1. **Falskt** – båda ökar\n2. **Sant**\n3. **Sant**\n4. **Falskt**","d":"","id":"c07-13"},{"cat":"Plasticitet & härdning","q":"Sant eller falskt om utskiljningshärdning: (1) kräver värmebehandling, (2) kräver legering, (3) går bra att kombinera med deformationshärdning, (4) gör att metallen åldras i förtid.","t":"Sant/Falskt","s":"2023-10 4c","a":"1. **Sant**\n2. **Sant**\n3. **Sant**\n4. **Falskt** – \"åldring\" är namnet på värmebehandlingssteget, inte förtida åldrande","d":"","id":"c07-14"},{"cat":"Plasticitet & härdning","q":"Sant eller falskt om deformationshärdning: (1) kräver legering, (2) kräver värmebehandling, (3) komprimerar kornen så att atombindningarna blir starkare, (4) fungerar inte bra för metaller som ska användas vid höga temperaturer.","t":"Sant/Falskt","s":"2023-10 4d","a":"1. **Falskt**\n2. **Falskt**\n3. **Falskt** – dislokationstätheten ökar, bindningarna är oförändrade\n4. **Sant** – rekristallisation tar bort effekten","d":"","id":"c07-15"},{"cat":"Plasticitet & härdning","q":"Vad beskriver lösningshärdning?","t":"Begrepp","s":"2025-10 1d","a":"Härdning genom **inlösta atomer** (substitutionella eller interstitiella) som förvränger gittret och **hindrar dislokationsrörelse**.","d":"","id":"c07-16"},{"cat":"Plasticitet & härdning","q":"Vad beskriver utskiljningshärdning?","t":"Begrepp","s":"2025-10 1e","a":"Härdning genom att **finfördelade partiklar** bildas i materialet (vid värmebehandling) och **hindrar dislokationsrörelse**.","d":"","id":"c07-17"},{"cat":"Plasticitet & härdning","q":"Vad innebär korngränshärdning?","t":"Begrepp","s":"2024-10 1f","a":"Man **minskar kornstorleken** → fler korngränser som **motverkar dislokationsrörelse**.","d":"Hall–Petch: σ_{gb} ∝ 1/√d. Enda härdningsmekanismen som ökar både hållfasthet och seghet.","id":"c07-18"},{"cat":"Plasticitet & härdning","q":"Beskriv deformationshärdning (kallbearbetning) och hur mikrostrukturen förändras.","t":"Förklara","s":"2025-01 9a · 2018-10 3a","a":"Plastisk deformation vid låg temperatur (valsning, dragning, pressning) → **nya dislokationer bildas**, dislokationstätheten ökar kraftigt. De **trasslar in sig och låser varandra** → fortsatt deformation kräver högre spänning.\nMikrostruktur: **utdragna korn** (\"pannkakskorn\"), lagrad elastisk energi.","d":"Sträckgräns och brottgräns ↑, brottförlängning ↓.","id":"c07-19"},{"cat":"Plasticitet & härdning","q":"Skissa hur sträckgräns, brottgräns och brottförlängning ändras med ökande kallbearbetning.","t":"Förklara","s":"2018-10 3b","a":"- **Sträckgräns** ↑ kraftigt (närmar sig brottgränsen)\n- **Brottgräns** ↑ (svagare)\n- **Brottförlängning** ↓ kraftigt\n(x-axel: % kallbearbetning, y-axel: egenskap)","d":"","id":"c07-20"},{"cat":"Plasticitet & härdning","q":"Kan deformationshärdning användas på både legerade och olegerade metaller?","t":"Förklara","s":"2025-01 9b","a":"**Ja** – det kräver ingen legering, bara plastisk deformation (t.ex. kallvalsad ren Cu eller Al).","d":"","id":"c07-21"},{"cat":"Plasticitet & härdning","q":"Vad händer när en deformationshärdad metall värms över en viss temperatur? (Rekristallisation)","t":"Begrepp","s":"2025-01 9c · 2024-10 1d · 2018-10 3c","a":"**Rekristallisation**: nya, små, likaxliga, **nästan dislokationsfria korn** bildas och växer. Drivkraft = den lagrade deformationsenergin.\nSträckgränsen sjunker, duktiliteten återkommer → egenskaper ungefär som **före kallbearbetningen**.","d":"Sker ovanför rekristallisationstemperaturen (~0,4 T_{m} i K). Därför fungerar inte deformationshärdning vid höga driftstemperaturer.","id":"c07-22"},{"cat":"Plasticitet & härdning","q":"Vad är varmbearbetning och varför kombinerar man varm- och kallvalsning?","t":"Förklara","s":"","a":"Varmbearbetning: deformation och rekristallisation sker **samtidigt** → ingen deformationshärdning, låga krafter, stora formändringar.\nPraxis: **varmvalsning först** (grovjobbet), **kallvalsning sist** (måttnoggrannhet, ytfinhet, hållfasthet).","d":"","id":"c07-23"},{"cat":"Plasticitet & härdning","q":"Definiera åldring.","t":"Begrepp","s":"2021-10 1a","a":"Måttlig uppvärmning av en **metastabil (övermättad) enfas** så att **fina utskiljningar** kan bildas.","d":"","id":"c07-24"},{"cat":"Plasticitet & härdning","q":"Beskriv stegen i utskiljningshärdning och skillnaden mellan under-, topp- och överåldrat.","t":"Förklara","s":"2024-08 3b · 2019-10 4b","a":"1. **Lösningsbehandling** – värm till enfasområdet, allt löses i α\n2. **Snabbkylning** – övermättad, metastabil α\n3. **Åldring** – måttlig värmning → fina, jämnt fördelade utskiljningar\n- Underåldrat: segare, lägre σ_{y}\n- **Toppåldrat** (T6): starkast\n- Överåldrat: grova partiklar → något svagare men segare och mer temperaturtåligt","d":"","id":"c07-25"},{"cat":"Plasticitet & härdning","q":"Aluminium är mycket mjukt i rent tillstånd. Beskriv tre metoder för att göra det hårdare.","t":"Förklara","s":"2018-10 5","a":"- **Lösningshärdning**: lösta atomer (t.ex. Mg) förvränger gittret\n- **Deformationshärdning**: kallbearbetning ökar dislokationstätheten\n- **Utskiljningshärdning**: lösningsbehandla, släck, ålda → fina partiklar (t.ex. CuAl₂)","d":"Al kan inte martensithärdas (ingen fasomvandling som i stål). Beskrivning av metoderna krävs för poäng.","id":"c07-26"},{"cat":"Plasticitet & härdning","q":"Vad är flyttöjning σ_{y}/E och varför är den stor för polymerer?","t":"Förklara","s":"","a":"Töjningen där materialet slutar vara linjärelastiskt. Diagonala linjer i σ_{y}–E-diagrammet.\nPolymerer: E är ~100× lägre än för metaller medan σ_{y} skiljer mindre → stor elastisk töjning innan flytning.","d":"","id":"c07-27"},{"cat":"Brott & seghet","q":"Definiera brottseghet (K_{1c}).","t":"Begrepp","s":"2025-10 1c · 2025-01 2 · 2018-10 1c","a":"Det **kritiska värdet på spänningsintensitetsfaktorn** för spricktillväxt i mod I: **K_{1c} = Yσ*√(πc)**. Ett mått på materialets förmåga att **motstå spricktillväxt**.","d":"Brott sker när K_{1} = Yσ√(πc) ≥ K_{1c}. Ren materialegenskap (oberoende av geometri) om provet är tillräckligt tjockt (plant töjningstillstånd).","id":"c08-01"},{"cat":"Brott & seghet","q":"Varför dimensionerar man mot brottseghet istället för brottgränsen? Hur används brottsegheten?","t":"Förklara","s":"2019-10 3a · 2022-10 3c","a":"Verkliga komponenter har **sprickor och defekter**. Brottgränsen (från dragprov utan spricka) säger inget om när en spricka växer.\nK_{1c} kopplar **last, spricklängd och geometri**: brott när K_{1} ≥ K_{1c} → ger tillåten spänning för en given spricka, eller kritisk spricklängd för en given spänning.","d":"Mikronivå: brottsegheten beror på plasticiteten vid sprickspetsen – lite plasticitet = låg seghet.","id":"c08-02"},{"cat":"Brott & seghet","q":"K_{1c} = 25 MPa√m, Y = 1, σ = 200 MPa. Vilken är den kritiska spricklängden?","t":"Beräkning","s":"","a":"c* = (1/π)·(K_{1c}/(Yσ))² = (1/π)·(25/200)² ≈ **5,0 mm**","d":"Omvänt: tillåten spänning σ* = K_{1c}/(Y√(πc)).","id":"c08-03"},{"cat":"Brott & seghet","q":"Hållfasthet, seghet och duktilitet – vad är skillnaden?","t":"Begrepp","s":"","a":"- **Hållfasthet**: motstånd mot plastisk deformation (σ_{y})\n- **Seghet**: motstånd mot **spricktillväxt** (K_{1c}, G_{c})\n- **Duktilitet**: hur mycket materialet töjs plastiskt innan brott (ε_{f})","d":"Ett dragprov mäter inte seghet – det finns ingen spricka att utgå från.","id":"c08-04"},{"cat":"Brott & seghet","q":"Förklara skillnaden mellan sprött och segt brott: brottyta, deformation före brott och när de uppträder.","t":"Förklara","s":"2025-10 4 · 2019-10 3b · tentaklassiker","a":"**Sprött brott**: ingen/liten plastisk deformation, plötsligt, lite energi. Brottyta **plan, blank, kornig** (klyvbrott längs atomplan eller intergranulärt). Vid **låg temperatur**, **hög belastningshastighet**, spröda material (keramer, härdat stål, gjutjärn).\n**Segt brott**: **stor plastisk deformation** (midjebildning), energikrävande. Brottyta **matt, ojämn, skål-och-kon**. De flesta metaller (FCC) vid rumstemperatur.","d":"Segt brott: hålrum bildas kring inneslutningar, växer och länkas samman. Ingenjören föredrar segt brott – det ger förvarning.","id":"c08-05"},{"cat":"Brott & seghet","q":"Bilder på brottytor: vilka ord hör till utmattningsbrott, sprött brott och segt brott?","t":"Flerval","s":"2024-10 6","a":"- **Utmattningsbrott**: initiering, striationer (beach marks), restbrott\n- **Sprött brott**: inte energikrävande (plan, kornig yta)\n- **Segt brott**: plasticitet (midjebildning, skål–kon)","d":"","id":"c08-06"},{"cat":"Brott & seghet","q":"Vad är slagseghet, hur mäts den och när används den?","t":"Begrepp","s":"2024-08 1b · 2024-01 1d · 2024-10 1j · 2019-10 3c","a":"Förmågan att **absorbera energi vid snabb (slag)belastning**.\nMäts med **Charpy-prov**: en pendel slår av en provstav med anvisning → absorberad energi (J).\nAnvänds för **kvalitetskontroll** och för att bestämma **omslagstemperaturen** (duktil–spröd).","d":"Ger ingen ren materialegenskap – värdet beror på provets storlek och geometri. Kan bara rangordna material.","id":"c08-07"},{"cat":"Brott & seghet","q":"Vad är duktil–spröd-övergången? Vilka metaller har den?","t":"Förklara","s":"","a":"Under en **omslagstemperatur** blir vissa metaller spröda: σ_{y} ökar vid låg temperatur → **plastiska zonen krymper** → låg seghet.\n**BCC-metaller** (t.ex. ferritiskt stål) har övergången. **FCC-metaller** (Al, Cu, Ni, austenitiskt rostfritt) förblir sega ner till lägsta temperaturer. Alla polymerer blir spröda.","d":"","id":"c08-08"},{"cat":"Brott & seghet","q":"Varför tål keramer mycket mer i tryck än i drag?","t":"Förklara","s":"","a":"**Drag**: den största defekten växer instabilt – inga dislokationer kan trubba sprickspetsen.\n**Tryck**: sprickor växer stabilt (vinklade \"wing cracks\") och brott kräver att ett krossband av fragmenterat material bildas.","d":"Därför anges keramers hållfasthet ofta som krosshållfasthet (tryck).","id":"c08-09"},{"cat":"Brott & seghet","q":"Vad beskriver Weibullstatistik och varför ger böjprov högre hållfasthet än dragprov för keramer?","t":"Förklara","s":"","a":"Sannolikheten för brott utifrån defektfördelningen. **Större volym → större chans för en kritisk defekt → lägre hållfasthet.** Weibullmodulen m styr spridningen (lågt m = stor spridning).\nBöjprov: bara en liten volym (dragsidans yta) får högsta spänningen → mindre chans för stor defekt där.","d":"","id":"c08-10"},{"cat":"Brott & seghet","q":"Varför sänker en höjd sträckgräns ofta brottsegheten hos metaller?","t":"Förklara","s":"","a":"Högre σ_{y} → **mindre plastisk zon** vid sprickspetsen → mindre energi förbrukas → **lägre K_{1c}**.","d":"Kan mildras med renare material (färre inneslutningar). Fiberarmering kan öka både styvhet och seghet (fiber bridging, pull-out).","id":"c08-11"},{"cat":"Brott & seghet","q":"Samband mellan K_{1c} och seghet G_{c}? Varför är spröda material så defektkänsliga?","t":"Beräkning","s":"","a":"**K_{1c} = √(E·G_{c})**.\nSpröda material: ingen plastisk zon → G_{c} ≈ 2γ (bara ytenergi) → låg seghet → redan små, svårupptäckta defekter räcker för brott.","d":"Sega metaller: plastisk zon + hålrumstillväxt förbrukar mycket energi → hög G_{c}.","id":"c08-12"},{"cat":"Brott & seghet","q":"Vad krävs för att ett uppmätt K_{1c} ska vara en ren materialegenskap?","t":"Förklara","s":"","a":"**Skarp spricka** (utmattningsspricka) och **tillräckligt tjockt prov** → plant töjningstillstånd längs sprickfronten.\nStandardgeometrier: **CT** (compact tension) och **SENB** (single edge notched beam).","d":"Tunt prov → plant spänningstillstånd → för högt, geometriberoende värde.","id":"c08-13"},{"cat":"Brott & seghet","q":"Hur går brott till i keramer, polymerer och kompositer?","t":"Förklara","s":"","a":"- **Keramer**: sprött, styrs av största defekten; inga dislokationer\n- **Polymerer**: ofta crazing (fina mikrosprickor) under T_{g}\n- **Kompositer**: debonding, fiber pull-out, mikroknäckning","d":"","id":"c08-14"},{"cat":"Utmattning","q":"Definiera utmattningsgräns.","t":"Begrepp","s":"2022-10 1f · 2024-10 1e · 2025-01 1","a":"Den **spänningsamplitud under vilken utmattningsbrott inte sker** oavsett antal cykler (eller först efter > 10⁷ cykler).","d":"Metaller ≈ 0,33·σ_{ts}. Inte alla material (t.ex. Al) har en tydlig gräns.","id":"c09-01"},{"cat":"Utmattning","q":"Definiera högcykelutmattning (HCF).","t":"Begrepp","s":"2018-10 1d","a":"Brott vid cyklisk belastning **under sträckgränsen** – globalt elastiskt, men materialet **plasticerar lokalt** vid sprickspets/defekter → **stort antal cykler** till brott.","d":"Beskrivs med Basquins lag: Δσ·N_{f}^{b} = C₁. Vanligaste designkriteriet.","id":"c09-02"},{"cat":"Utmattning","q":"Vad är lågcykelutmattning (LCF) och hur skiljer den sig från HCF?","t":"Förklara","s":"","a":"Spänning **över sträckgränsen** – hela provet plasticerar varje cykel → **få cykler**. Provas töjningsstyrt.\nCoffins lag: **Δε_{pl}·N_{f}^{c} = C₂** (c ≈ 0,5).","d":"σ–ε: HCF går fram och tillbaka på samma linje; LCF ger en **hysteresloop** – bredden = plastiskt töjningsintervall, arean = energi per cykel.","id":"c09-03"},{"cat":"Utmattning","q":"Vad visar en S–N-kurva?","t":"Begrepp","s":"","a":"**Spänningsamplitud mot antal cykler till brott N_{f}** (log-skala). Högre amplitud → kortare liv. En horisontell del = utmattningsgräns.","d":"Gäller medelspänning σ_{m} = 0. Dragande medelspänning sänker tillåten amplitud (Goodman).","id":"c09-04"},{"cat":"Utmattning","q":"Beskriv brottytan efter ett utmattningsbrott.","t":"Förklara","s":"2024-10 6 · tentafråga","a":"1. **Initieringsområde** – ofta vid ytan/anvisning\n2. **Utmattningszon** – **beach marks** (syns med ögat, lastvariationer) och **striationer** (~1 µm, en per cykel, syns i SEM)\n3. **Restbrott** – när sprickan når kritisk längd (K = K_{1c}): grov yta, segt eller sprött","d":"","id":"c09-05"},{"cat":"Utmattning","q":"Var och hur initieras utmattningssprickor?","t":"Förklara","s":"","a":"Oftast vid **ytan**: persistenta glidband ger intrusioner/extrusioner, anvisningar, repor, korrosion.\nInuti när ytan är slät/tryckbelastad: **inneslutningar, porer**, hårda faser.","d":"Fas 1: skjuvspricka i några ytkorn. Fas 2: lång spricka vinkelrätt mot största huvudspänningen (mod I).","id":"c09-06"},{"cat":"Utmattning","q":"Beskriv spricktillväxt under utmattning (ΔK, Paris lag).","t":"Förklara","s":"","a":"ΔK = Δσ√(πc) – ökar när sprickan växer.\n- Under **ΔK_{th}**: ingen tillväxt\n- Mellanområdet: **Paris lag** dc/dN = A·ΔK^{m} – stabil tillväxt\n- Slutet: accelererar, brott när K_{max} = K_{1c}","d":"Ospruckna komponenter: initieringen tar största delen av livet. Svetsar/gjutgods/flyg: livet styrs av tillväxthastigheten → inspektionsintervall.","id":"c09-07"},{"cat":"Utmattning","q":"Hur förbättrar man utmattningslivet?","t":"Förklara","s":"","a":"- **Tryckrestspänningar i ytan**: **kulbombning (shot peening)**, nitrering, sätthärdning – håller sprickan stängd\n- **Släta ytor**, undvik anvisningar/spänningskoncentrationer\n- Liten kornstorlek, få inneslutningar och porer\n- Korrosionsskydd, håll dig under max servicetemperatur","d":"Sprickor växer bara under dragdelen av cykeln.","id":"c09-08"},{"cat":"Utmattning","q":"Vad säger Palmgren–Miners delskadehypotes?","t":"Beräkning","s":"","a":"Varje block N_{i} cykler vid en amplitud med livslängd N_{f,i} förbrukar andelen N_{i}/N_{f,i}. **Brott när Σ N_{i}/N_{f,i} = 1.**","d":"Approximation – ordningen mellan blocken ignoreras.","id":"c09-09"},{"cat":"Utmattning","q":"Räcker ett dragprov för att uppskatta utmattningsgränsen?","t":"Förklara","s":"","a":"**Nej**. Grovt σ_{e} ≈ 0,33·σ_{ts} för metaller, men utmattningskvoten σ_{e}/σ_{y} **sjunker** när sträckgränsen höjs – dubbel σ_{y} ger inte dubbel σ_{e}. Svag korrelation → utmattningsprov krävs.","d":"","id":"c09-10"},{"cat":"Utmattning","q":"Vad är dämpningskoefficienten η? Ge exempel på låg och hög dämpning.","t":"Begrepp","s":"","a":"Andelen lagrad elastisk energi som **inte återfås** vid avlastning (försvinner som värme).\n- Låg η: glas, keramer, brons → klockor\n- Hög η: bly, **gråjärn**, polymerer, elastomerer → dämpa vibrationer","d":"","id":"c09-11"},{"cat":"Diffusion, krypning & värme","q":"Definiera diffusion.","t":"Begrepp","s":"2024-01 1a · 2025-10 1j · 2021-10 3a","a":"Den **temperaturberoende** process där atomer förflyttar sig genom materialet via **atomhopp**, med nettoflöde från **hög till låg koncentration**.\nKräver (1) tillräcklig **termisk energi** och (2) en ledig plats (**vakans**) intill.","d":"D = D₀·exp(−Q/RT) – ökar exponentiellt med temperaturen. Små atomer (C, H) diffunderar interstitiellt och mycket snabbare än stora.","id":"c10-01"},{"cat":"Diffusion, krypning & värme","q":"Ge exempel på när diffusion är viktig.","t":"Förklara","s":"2021-10 3b","a":"- **Fasomvandlingar** (perlit, utskiljningar, åldring)\n- **Krypning** (diffusionskryp)\n- **Uppkolning/sätthärdning** och nitrering av stål\n- **Sintring**, homogenisering, oxidation, dopning av halvledare","d":"","id":"c10-02"},{"cat":"Diffusion, krypning & värme","q":"Definiera diffusionskoefficient.","t":"Begrepp","s":"2019-10 1b","a":"Ett mått på **hur snabbt atomer diffunderar** i ett material. Beror på **temperaturen**, vilka atomer som diffunderar och i vilket material.","d":"D = D₀·exp(−Q/RT). Ficks 1:a lag: J = −D·dc/dx.","id":"c10-03"},{"cat":"Diffusion, krypning & värme","q":"Definiera aktiveringsenergi (t.ex. för diffusion).","t":"Begrepp","s":"2018-10 1e · 2022-10 1d · 2024-08 1c","a":"Den **energibarriär** som måste övervinnas – med hjälp av **termisk energi** – för att en atom ska flytta sig från ett jämviktsläge till ett annat (eller en process som diffusion, krypning, kemisk reaktion ska ske).","d":"Hög Q → låg hastighet vid given temperatur.","id":"c10-04"},{"cat":"Diffusion, krypning & värme","q":"Sant eller falskt om aktiveringsenergi för diffusion: (1) är större för stora atomer, (2) är exponentiellt beroende av temperaturen, (3) är den energibarriär som måste övervinnas för att en atom ska diffundera, (4) övervinns med termisk energi.","t":"Sant/Falskt","s":"2023-10 1a","a":"1. **Sant**\n2. **Falskt** – Q är konstant; det är **diffusionshastigheten** som beror exponentiellt på T\n3. **Sant**\n4. **Sant**","d":"","id":"c10-05"},{"cat":"Diffusion, krypning & värme","q":"Definiera krypning.","t":"Begrepp","s":"2018-10 1b","a":"**Långsam, kontinuerlig plastisk deformation** under konstant last vid **förhöjd temperatur**. Beror på **temperatur, tid och last**.","d":"Metaller: relevant över ~0,4–0,5·T_{m} (Kelvin). Töjningshastigheten ökar exponentiellt med temperaturen.","id":"c10-06"},{"cat":"Diffusion, krypning & värme","q":"Sant eller falskt om krypning: (1) förekommer hos polymerer och metaller men inte keramer, (2) förekommer hos kristallina men inte amorfa material, (3) uppkommer vid temperaturer över halva smälttemperaturen, (4) ger en elastisk deformation.","t":"Sant/Falskt","s":"2023-10 1b","a":"1. **Falskt** – keramer kryper vid tillräckligt hög temperatur\n2. **Falskt** – även amorfa material (polymerer, glas) kryper\n3. **Sant**\n4. **Falskt** – deformationen är plastisk och tidsberoende","d":"","id":"c10-07"},{"cat":"Diffusion, krypning & värme","q":"Beskriv krypkurvans tre stadier.","t":"Förklara","s":"","a":"1. **Primärt** – avtagande töjningshastighet (dislokationer möter hinder)\n2. **Sekundärt** (steady state) – **konstant** töjningshastighet → dimensionerande\n3. **Tertiärt** – skador (porer) växer, accelererande förlopp till brott","d":"","id":"c10-08"},{"cat":"Diffusion, krypning & värme","q":"Definiera krypbrott.","t":"Begrepp","s":"2019-10 3d","a":"Brott vid **hög temperatur** när materialet deformeras **långsamt**. På grund av **diffusion** bildas **porer/hålrum vid korngränserna** som växer tills slutligt brott sker.","d":"","id":"c10-09"},{"cat":"Diffusion, krypning & värme","q":"Beskriv krypmekanismerna: diffusionskrypning och dislokationskrypning.","t":"Förklara","s":"","a":"- **Diffusionskrypning** (låg spänning, hög T): atomer/vakanser vandrar mellan tryckta och dragna korngränser → kornen förlängs. Via korngränserna (Coble) eller genom kornen (Nabarro–Herring). **Snabbare med små korn.**\n- **Dislokationskrypning / potenslagkryp** (medelhög spänning): dislokationer fastnar vid partiklar och **klättrar** förbi med hjälp av diffusion. ε̇ = Aσ^{n}·exp(−Q/RT).","d":"Q för stationär krypning ≈ Q för självdiffusion → krypning styrs av diffusion. Deformationsmekanismkarta (σ mot T/T_{m}) visar vilken mekanism som dominerar.","id":"c10-10"},{"cat":"Diffusion, krypning & värme","q":"Hur gör man ett material krypbeständigt? Ge exempel.","t":"Förklara","s":"","a":"Minska diffusionen och hindra dislokationerna:\n- **Hög smältpunkt**\n- **Stora korn** eller **enkristall** (få korngränser)\n- **Partiklar/utskiljningar** som låser dislokationer, fast lösning\n→ **Superlegeringar** (Ni), turbinblad: riktat stelnade/enkristallina, keramisk termisk barriär (TBC), inre kylkanaler.","d":"","id":"c10-11"},{"cat":"Diffusion, krypning & värme","q":"Definiera superlegering.","t":"Begrepp","s":"2022-10 1e · 2024-08 1g","a":"En metallisk legering (oftast **Ni-**, även Co- eller Fe-baserad) som behåller **hög hållfasthet** samt **oxidations- och korrosionsbeständighet** vid **mycket höga temperaturer** – t.ex. i gasturbiner och jetmotorer.","d":"","id":"c10-12"},{"cat":"Diffusion, krypning & värme","q":"Definiera (specifik) värmekapacitet.","t":"Begrepp","s":"2019-10 1a · 2022-10 1c","a":"Den energi som krävs för att **höja temperaturen 1 K** hos **1 kg** material [J/(kg·K)].","d":"Per volym är den nästan lika för alla fasta ämnen: ρC_{p} ≈ 3·10⁶ J/(m³·K) – kopplad till antalet atomer per volym.","id":"c10-13"},{"cat":"Diffusion, krypning & värme","q":"Definiera termisk utvidgningskoefficient.","t":"Begrepp","s":"2024-01 1b","a":"Hur mycket ett material **ändrar sin längd per grad** temperaturändring: **ε = α·ΔT** [1/K].","d":"Volymkoefficient ≈ 3α. Orsak: osymmetrisk bindningsenergikurva. Starka bindningar → hög E och T_{m} → låg α (α ∝ 1/T_{m}).","id":"c10-14"},{"cat":"Diffusion, krypning & värme","q":"Hur uppstår termiska spänningar och hur undviker man dem?","t":"Förklara","s":"","a":"Material med **olika α** fogas ihop, eller en **temperaturgradient** finns → förhindrad expansion → σ ≈ E·α·ΔT. Upprepade cykler → **termisk utmattning**.\nMotmedel: material med liknande α, graderade fogar.","d":"Kan utnyttjas: bimetallremsa böjs → termostater, brytare.","id":"c10-15"},{"cat":"Diffusion, krypning & värme","q":"Definiera värmeledningsförmåga och termisk diffusivitet.","t":"Begrepp","s":"","a":"- **Värmeledningsförmåga λ** [W/(m·K)]: hur snabbt värme leds vid stationärt tillstånd. Fononer + i metaller fria elektroner.\n- **Termisk diffusivitet a = λ/(ρC_{p})** [m²/s]: styr tidsberoende (transient) värmeledning.","d":"","id":"c10-16"},{"cat":"Diffusion, krypning & värme","q":"Vad begränsar max och min användningstemperatur?","t":"Förklara","s":"","a":"- **Max**: försämrade mekaniska egenskaper (krypning, mjukning), fasomvandlingar, oxidation\n- **Min**: **sprödhet** (duktil–spröd-övergång)\nBestäms i praktiken av erfarenhet och används som krav i materialval.","d":"","id":"c10-17"},{"cat":"Konstruktionsmetaller","q":"Vilka egenskaper gör magnesium intressant, vad har det för nackdelar och var används det?","t":"Förklara","s":"2019-10 5a · 2023-10 5 · 2022-10 2","a":"+ **Lägst densitet** av konstruktionsmetallerna (~1,8 g/cm³), **god gjutbarhet**\n− Låg E och σ_{y}, **HCP** → svårt att forma plastiskt, relativt **sprött**, **korroderar**, klarar inte hög temperatur\n→ **Gjutna lättviktsdetaljer** med komplex form vid rumstemp: bil- och flygkomponenter, kamerahus.","d":"","id":"c11-01"},{"cat":"Konstruktionsmetaller","q":"Vilka egenskaper gör titan intressant trots att det kostar 120–150 kr/kg (stål 7–10 kr/kg)? Tillämpningar?","t":"Förklara","s":"2021-10 5a · 2019-10 5b · 2023-10 5","a":"- **Hög sträckgräns** och betydligt **lägre densitet än stål** (~4,5 g/cm³) → hög σ_{y}/ρ\n- Klarar **upp till ~500 °C** (mer än Al och Mg)\n- **Utmärkt korrosionsmotstånd**, **biokompatibelt**\n→ Kompressorblad i jetmotorer, flyg, värmeväxlare (livsmedel/kemi), **implantat/proteser**.","d":"","id":"c11-02"},{"cat":"Konstruktionsmetaller","q":"Vad kännetecknar nickellegeringar och var används de?","t":"Förklara","s":"2019-10 5c","a":"**Hög hållfasthet vid hög temperatur** (upp till ~1000 °C) + goda **korrosions- och oxidationsegenskaper** → **gasturbiner, jetmotorer** (superlegeringar).","d":"","id":"c11-03"},{"cat":"Konstruktionsmetaller","q":"Vilka egenskaper gör koppar intressant och var används det?","t":"Förklara","s":"2023-10 5","a":"**Mycket god elektrisk och termisk ledningsförmåga**, god formbarhet (FCC), korrosionsbeständig.\n→ **Kablar, motorlindningar, värmeväxlare**. Legeringar: mässing (Cu+Zn), brons (Cu+Sn).","d":"Nackdel: tungt (~8,9 g/cm³) och relativt dyrt.","id":"c11-04"},{"cat":"Konstruktionsmetaller","q":"Vad kännetecknar aluminium och hur delas legeringarna in?","t":"Förklara","s":"","a":"~⅓ av stålets densitet, **korrosionsbeständigt** (tätt oxidskikt), god ledare, FCC → formbart.\n- **Smideslegeringar** (för plastisk formning)\n- **Gjutlegeringar** (med Si → nära eutektikum, låg smältpunkt)\nKan **inte martensithärdas** → lösnings-, deformations- och utskiljningshärdning.","d":"","id":"c11-05"},{"cat":"Konstruktionsmetaller","q":"Varför är stål den mest använda metallen?","t":"Förklara","s":"","a":"**Billigt**, hög hållfasthet och styvhet, **svetsbart**, låg miljöbelastning **per kilo**, lätt att återvinna, och egenskaperna kan varieras kraftigt med **kolhalt och värmebehandling**.","d":"","id":"c11-06"},{"cat":"Konstruktionsmetaller","q":"Sant eller falskt om gjutning och svetsning: (1) svetsning av stål kan ge en spröd värmepåverkad zon, (2) gjutning ger små likformiga korn, (3) gjutning ger en kornstruktur som varierar genom godset, (4) vid svetsning och gjutning uppkommer ofta dislokationer och vakanser.","t":"Sant/Falskt","s":"2023-10 1e","a":"1. **Sant** – korntillväxt och martensitbildning\n2. **Falskt** – kornstorleken varierar med kylhastigheten\n3. **Sant** – fina korn vid ytan, grövre inåt\n4. **Sant** – snabb stelning och termiska spänningar skapar defekter","d":"","id":"c11-07"},{"cat":"Konstruktionsmetaller","q":"Varför har gjutgods ofta sämre egenskaper än valsat/smitt material?","t":"Förklara","s":"","a":"**Varierande kornstruktur** (fint vid ytan, grovt/kolumnärt inåt), **porer**, krympsprickor och **segring** – ingen bearbetning som bryter upp och förfinar strukturen.","d":"Metoder: sandgjutning (stora delar, motorblock), precisionsgjutning (lost wax), pressgjutning HPDC (Al, Mg – \"megacasting\" av bilkarosser).","id":"c11-08"},{"cat":"Konstruktionsmetaller","q":"Vad händer i och kring en svets?","t":"Förklara","s":"","a":"Svetsgodset har smält och stelnat → **gjutstruktur**. Runt om finns en **värmepåverkad zon (HAZ)** med korntillväxt och ändrad härdning (i stål ev. martensit) → **sprödhet och sprickor**.","d":"","id":"c11-09"},{"cat":"Konstruktionsmetaller","q":"Beskriv kortfattat ståltillverkningen.","t":"Förklara","s":"","a":"Järnmalm (Fe₂O₃, Fe₃O₄) **reduceras med kol i masugn** → tackjärn + CO₂ → kolhalten justeras (färskning), legering → **stränggjutning** → **varmvalsning** → kallbearbetning till plåt, balk, tråd.\n**Skrot i ljusbågsugn** sparar energi, råvara och CO₂.","d":"","id":"c11-10"},{"cat":"Konstruktionsmetaller","q":"Definiera adhesiv förslitning.","t":"Begrepp","s":"2019-10 1f","a":"Vid nötning **binds ytornas kontaktpunkter samman med atomära bindningar** (mikrosvetsar) och material **rycks loss** när ytorna glider mot varandra.","d":"Jämför abrasiv förslitning: hårda partiklar eller ojämnheter repar bort material.","id":"c11-11"},{"cat":"Konstruktionsmetaller","q":"Vad är ett verktygsstål och varför är det svårt att använda i konstruktioner?","t":"Förklara","s":"2022-10 2","a":"**Högkolhaltigt stål** (0,5–1,7 % C), ofta legerat med karbidbildare → hög hårdhet, sträckgräns och nötningsbeständighet, goda högtemperaturegenskaper.\nSvårt att **forma plastiskt** och **svetsa**, sprött → används för borrar, skärverktyg, pressverktyg, formar.","d":"","id":"c11-12"},{"cat":"Korrosion & hållbarhet","q":"Varför oxiderar de flesta metaller i luft och vad avgör om oxiden skyddar?","t":"Förklara","s":"","a":"Oxiden är den **stabilaste formen** (lägst G) – därför finns metaller som malm. Oxiden växer genom att joner **diffunderar** genom filmen → snabbare vid hög T.\n**Täta, passiva** oxider (Al, Cr, Si) stänger ute syret. **Porös rost** (Fe) flagnar och blottar ny metall.","d":"","id":"c12-01"},{"cat":"Korrosion & hållbarhet","q":"Vilka fyra villkor krävs för (våt) korrosion?","t":"Förklara","s":"","a":"En elektrokemisk cell:\n1. **Anod** – metallen oxiderar och avger elektroner (angrips)\n2. **Katod** – elektronerna förbrukas (O₂ eller H⁺)\n3. **Elektronledning** mellan dem (metallen)\n4. **Jonledning** via elektrolyt (vatten)\nTar man bort ett villkor stannar korrosionen.","d":"Det krävs inte två olika metaller – syrefattiga områden på samma yta blir anod.","id":"c12-02"},{"cat":"Korrosion & hållbarhet","q":"Vad är galvanisk korrosion och hur undviker man den?","t":"Förklara","s":"","a":"Två metaller med olika potential i elektrisk kontakt i elektrolyt → den **oädlare** (anodiska) angrips (galvaniska serien i havsvatten).\nUndvik: **isolera** elektriskt (bussningar, packningar), annars **stor anodyta – liten katodyta**.","d":"Kan även ske mellan faser: grafit i gråjärn är ädlare än järnet; zink kan lösas ut ur mässing.","id":"c12-03"},{"cat":"Korrosion & hållbarhet","q":"Vilka lokala korrosionsformer finns och varför är de farliga?","t":"Förklara","s":"","a":"**Gropkorrosion, spaltkorrosion, intergranulär korrosion, spänningskorrosion, korrosionsutmattning.**\nFarliga eftersom detaljen kan **se hel ut** medan hållfastheten är borta.","d":"I en grop/spalt tar syret slut och pH sjunker → liten anod mot stor katod → snabbt angrepp; klorider förvärrar.","id":"c12-04"},{"cat":"Korrosion & hållbarhet","q":"Varför rostar inte rostfritt stål, och när kan det ändå korrodera?","t":"Förklara","s":"","a":"**> 12 % Cr** → tunt, tätt **kromoxidskikt** som är passivt och **läker sig självt**.\nSkiktet kan brytas lokalt av **kloridjoner** (saltvatten) → gropkorrosion.","d":"","id":"c12-05"},{"cat":"Korrosion & hållbarhet","q":"Hur skyddar man stål mot korrosion?","t":"Förklara","s":"","a":"- **Konstruktion först**: undvik spalter och instängd vätska, dränera\n- **Katodiskt skydd**: offeranod av zink korroderar istället\n- **Varmförzinkning**: skyddar även om skiktet repas\n- **Ytbeläggning**: målning, pulverlack, plätering\n- Ibland tillåtet jämnt angrepp med korrosionsmån (Corten)","d":"","id":"c12-06"},{"cat":"Korrosion & hållbarhet","q":"På vilka sätt belastar materialanvändning miljön?","t":"Förklara","s":"2024-08 6a · tentafavorit","a":"Genom hela **livscykeln**:\n- **Utvinning** av råvaror (gruvavfall, lokala utsläpp)\n- **Tillverkning** – energi och CO₂-utsläpp\n- **Transporter**\n- **Användning** – energiförbrukning\n- **Kassering** – avfall/deponi","d":"","id":"c12-07"},{"cat":"Korrosion & hållbarhet","q":"Hur kan man ta hänsyn till miljöbelastning när man gör ett materialval?","t":"Förklara","s":"2024-08 6b","a":"- **LCA / eco-audit** (t.ex. Granta EduPack) – hitta dominerande livscykelfas\n- Byt ρ mot **H_{m}ρ** eller **CO₂·ρ** i materialindex\n- **Minimera vikt** (energi i användning)\n- Välj **återvunnet material** (t.ex. återvunnet Al)\n- **Designa för återvinning**: få olika material, märkning, lång livslängd","d":"","id":"c12-08"},{"cat":"Korrosion & hållbarhet","q":"Vilken livscykelfas dominerar energiåtgången för olika produkter? Vad följer av det?","t":"Förklara","s":"","a":"- **Användning** dominerar: bil, tvättmaskin, vattenkokare\n- **Material** dominerar: vattenflaska, telefon, byggnad\nMiljöinsatsen ska riktas mot rätt fas: i en bil sparar **lägre vikt** mer än ett material med låg tillverkningsenergi.","d":"","id":"c12-09"},{"cat":"Korrosion & hållbarhet","q":"Vilka är vinsterna och problemen med återvinning av metaller? Vilka egenskaper försämras?","t":"Förklara","s":"2022-10 5","a":"**Vinster**: mindre råvaruuttag, **mycket lägre energi och CO₂**, mindre deponi.\n**Försämrade egenskaper**: i princip **inga**.\n**Problem**: föroreningar och legeringshalter måste hållas inom tolerans – raffinering är dyr/omöjlig → skrot måste **sorteras och hållas separerat**.","d":"","id":"c12-10"},{"cat":"Korrosion & hållbarhet","q":"Vad menas med att ett material är en ändlig resurs? Ge exempel.","t":"Begrepp","s":"2025-10 6a","a":"Materialet finns i **begränsad mängd** och riskerar att **ta slut** inom överskådlig tid.\nEx: **sällsynta jordartsmetaller** (efterfrågan växer snabbare än tillgången), även kobolt och litium.","d":"","id":"c12-11"},{"cat":"Korrosion & hållbarhet","q":"Vilka faktorer avgör om ett material är miljömässigt hållbart ur ett livscykelperspektiv?","t":"Förklara","s":"2025-10 6b","a":"**Låg miljöpåverkan under hela livscykeln** (energi och utsläpp vid tillverkning, resursuttag) och att det kan **återvinnas eller förnyas med låg resursåtgång**.","d":"","id":"c12-12"},{"cat":"Korrosion & hållbarhet","q":"Varför räcker inte återvinning för framtidens materialförsörjning? Vilken åtgärd krävs utöver?","t":"Förklara","s":"2025-10 6c","a":"Mängden material i användning **ökar**, material är bundet i produkter länge, och återvinning ger alltid **förluster och kvalitetsnedgång**.\nUtöver: **minska materialanvändningen** (lättare design, höghållfasta material), längre livslängd/reparation, cirkulär design, förnybara material.","d":"","id":"c12-13"},{"cat":"Korrosion & hållbarhet","q":"Definiera CO₂-footprint.","t":"Begrepp","s":"2021-10 1d","a":"Den mängd **CO₂ som bildas vid produktion av ett kilo** material.","d":"","id":"c12-14"},{"cat":"Korrosion & hållbarhet","q":"Vad beskriver embodied energy (inbäddad energi)?","t":"Begrepp","s":"2025-10 1i","a":"Den **totala energi** som krävs för att **utvinna råvaror, producera och bearbeta** materialet fram till färdig materialform (per kg).","d":"","id":"c12-15"}];
+const CAT_ORDER = [
+  "Materialfamiljer & tillverkning","Materialval","Elasticitet & bindningar","Kristallstruktur & Miller-index",
+  "Fasdiagram","Stål & värmebehandling","Plasticitet & härdning","Brott & seghet","Utmattning",
+  "Diffusion, krypning & värme","Konstruktionsmetaller","Korrosion & hållbarhet"
+];
+const FREQ = [
+  ["Definitioner / begrepp", 10],
+  ["Fasdiagram & värmebehandling", 10],
+  ["Kristallografi (Miller-index, celler)", 10],
+  ["Materialval (översättning, index)", 9],
+  ["Diffusion & krypning", 8],
+  ["Plasticitet, härdning & kallbearbetning", 6],
+  ["Brott & seghet", 4],
+  ["Utmattning", 4],
+  ["Konstruktionsmetaller (Mg, Ti, Ni, Cu)", 4],
+  ["Hållbarhet & miljö", 4]
+];
+const LS_KEY = "mtt085-metall-flashcards-v1";
+
+/* ---------- State ---------- */
+const clone = o => JSON.parse(JSON.stringify(o));
+let S = load();
+function load(){
+  let s = null;
+  try { s = JSON.parse(localStorage.getItem(LS_KEY) || "null"); } catch(e) { s = null; }
+  if (!s || !Array.isArray(s.deck)) s = { deck: clone(DEFAULT_DECK), known:{}, star:{}, seen:{} };
+  s.known = s.known || {}; s.star = s.star || {}; s.seen = s.seen || {};
+  s.prefs = Object.assign({ view:"study", cat:"all", mode:"unknown", exam:false, shuffle:false, cur:null }, s.prefs || {});
+  return s;
+}
+function save(){ try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch(e) {} }
+
+let order = {};               // shuffle keys (per session)
+let flipped = false;
+let lastIdx = 0;
+let openRow = null;
+function reshuffle(){ order = {}; S.deck.forEach(c => order[c.id] = Math.random()); }
+reshuffle();
+
+/* ---------- Helpers ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function inline(s){
+  return esc(s)
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/_\{([^}]+)\}/g, "<sub>$1</sub>")
+    .replace(/\^\{([^}]+)\}/g, "<sup>$1</sup>");
+}
+function fmt(text){
+  const lines = String(text || "").split(/\n/);
+  let html = "", list = null;
+  const close = () => { if (list) { html += `</${list}>`; list = null; } };
+  for (const raw of lines){
+    const line = raw.trim();
+    if (!line){ close(); continue; }
+    let m;
+    if ((m = line.match(/^[-•]\s+(.*)$/))){
+      if (list !== "ul"){ close(); html += "<ul>"; list = "ul"; }
+      html += `<li>${inline(m[1])}</li>`;
+    } else if ((m = line.match(/^(\d+)[.)]\s+(.*)$/))){
+      if (list !== "ol"){ close(); html += `<ol start="${m[1]}">`; list = "ol"; }
+      html += `<li>${inline(m[2])}</li>`;
+    } else { close(); html += `<p>${inline(line)}</p>`; }
+  }
+  close();
+  return html;
+}
+function plain(text){ return String(text||"").replace(/\*\*/g,"").replace(/[_^]\{([^}]+)\}/g,"$1").replace(/\n[-•]\s+/g," · ").replace(/\n\d+[.)]\s+/g," · ").replace(/\n/g," "); }
+function examCount(c){
+  const m = String(c.s||"").match(/\b20\d\d-\d\d\b/g);
+  return m ? new Set(m).size : (/tenta/i.test(c.s||"") ? 1 : 0);
+}
+const isExam = c => examCount(c) > 0;
+function srcText(s){
+  if (!s) return "";
+  return s.split(/\s*·\s*/).map(p => /^\d{4}-\d{2}/.test(p) ? "Tenta " + p : p.charAt(0).toUpperCase() + p.slice(1)).join(" · ");
+}
+function cats(){
+  const present = new Set(S.deck.map(c => c.cat));
+  const list = CAT_ORDER.filter(c => present.has(c));
+  S.deck.forEach(c => { if (!list.includes(c.cat)) list.push(c.cat); });
+  return list;
+}
+function stat(filterFn){
+  const arr = S.deck.filter(filterFn);
+  const k = arr.filter(c => S.known[c.id]).length;
+  return { total: arr.length, known: k, pct: arr.length ? Math.round(100 * k / arr.length) : 0 };
+}
+function ring(pct, size, sw, fontSize){
+  const r = (size - sw) / 2, C = 2 * Math.PI * r, off = C * (1 - pct / 100);
+  return `<div class="ring${pct>=100?" full":""}" style="width:${size}px;height:${size}px">
+    <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true">
+      <circle class="trk" cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke-width="${sw}"/>
+      <circle class="bar" cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke-width="${sw}" stroke-linecap="round" stroke-dasharray="${C.toFixed(2)}" stroke-dashoffset="${off.toFixed(2)}"/>
+    </svg><span class="pct" style="font-size:${fontSize}px">${pct}%</span></div>`;
+}
+let toastT;
+function toast(msg){ const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("show"), 1900); }
+
+/* ---------- Views ---------- */
+function setView(v){
+  S.prefs.view = v; save();
+  document.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-selected", String(t.dataset.view === v)));
+  ["study","progress","list"].forEach(id => $("#view-" + id).hidden = id !== v);
+  render();
+  window.scrollTo({ top: 0 });
+}
+function render(){
+  renderTop();
+  if (S.prefs.view === "study") renderStudy();
+  else if (S.prefs.view === "progress") renderProgress();
+  else renderList();
+}
+function renderTop(){
+  const a = stat(() => true);
+  $("#topRing").innerHTML = ring(a.pct, 36, 4, 9.5) + `<span><b>${a.known}</b> / ${a.total}<br>kan</span>`;
+}
+
+/* ---------- Study ---------- */
+function queue(){
+  const p = S.prefs;
+  let q = S.deck.filter(c =>
+    (p.cat === "all" || c.cat === p.cat) &&
+    (!p.exam || isExam(c)) &&
+    (p.mode === "unknown" ? !S.known[c.id] : p.mode === "star" ? !!S.star[c.id] : true));
+  if (p.shuffle) q = q.slice().sort((a, b) => (order[a.id] ?? 0) - (order[b.id] ?? 0));
+  return q;
+}
+function current(q){
+  let i = q.findIndex(c => c.id === S.prefs.cur);
+  if (i < 0){ i = Math.min(lastIdx, q.length - 1); }
+  if (i < 0) i = 0;
+  lastIdx = i;
+  if (q[i]) S.prefs.cur = q[i].id;
+  return { i, card: q[i] };
+}
+function renderChips(){
+  const all = stat(() => true);
+  let h = `<button class="chip" data-cat="all" aria-pressed="${S.prefs.cat==="all"}">Alla <small>${all.known}/${all.total}</small></button>`;
+  for (const c of cats()){
+    const s = stat(x => x.cat === c);
+    h += `<button class="chip" data-cat="${esc(c)}" aria-pressed="${S.prefs.cat===c}">${esc(c)} <small>${s.known}/${s.total}</small></button>`;
+  }
+  $("#chips").innerHTML = h;
+}
+function renderRings(){
+  const p = S.prefs;
+  const sc = p.cat === "all" ? stat(() => true) : stat(c => c.cat === p.cat);
+  const sa = stat(() => true);
+  $("#ringCat").innerHTML = ring(sc.pct, 74, 8, 16) + `<div class="meta"><b>Kategori</b><span>${esc(p.cat === "all" ? "Alla kategorier" : p.cat)}</span><small>${sc.known} av ${sc.total} kan</small></div>`;
+  $("#ringAll").innerHTML = ring(sa.pct, 74, 8, 16) + `<div class="meta"><b>Totalt</b><span>Hela metalldelen</span><small>${sa.known} av ${sa.total} kan</small></div>`;
+}
+function renderStudy(){
+  renderChips(); renderRings();
+  const p = S.prefs;
+  document.querySelectorAll("#modeSeg button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.mode === p.mode)));
+  $("#examOnly").checked = !!p.exam;
+  $("#shuffleBtn").setAttribute("aria-pressed", String(!!p.shuffle));
+  $("#shuffleBtn span").textContent = p.shuffle ? "Blandat" : "Blanda";
+  $("#shuffleBtn").style.color = p.shuffle ? "var(--navy)" : "";
+  const q = queue();
+  const area = $("#cardArea");
+  if (!q.length){
+    $("#controls").hidden = true;
+    let title, msg, btns;
+    if (p.mode === "unknown" && S.deck.some(c => (p.cat==="all"||c.cat===p.cat) && (!p.exam||isExam(c)))){
+      title = "Allt här är markerat som Kan";
+      msg = "Korten kommer tillbaka när du avmarkerar dem. Repetera allt eller nollställ kategorin.";
+      btns = `<button class="btn primary" data-act="mode-all">Visa alla kort</button><button class="btn" data-act="reset-cat">Nollställ ${p.cat==="all"?"allt":"kategorin"}</button>`;
+    } else if (p.mode === "star"){
+      title = "Inga stjärnmärkta kort här";
+      msg = "Markera kort med ★ Öva så bygger du en egen övningsbunt.";
+      btns = `<button class="btn primary" data-act="mode-unknown">Visa ej kunna</button>`;
+    } else {
+      title = "Inga kort i urvalet";
+      msg = "Prova en annan kategori eller stäng av filtret för tentafrågor.";
+      btns = `<button class="btn primary" data-act="clear-filters">Rensa filter</button>`;
+    }
+    area.innerHTML = `<div class="empty"><h3>${title}</h3><p>${msg}</p><div class="row">${btns}</div></div>`;
+    save(); return;
+  }
+  $("#controls").hidden = false;
+  const { i, card } = current(q);
+  const n = examCount(card);
+  const meta = `<div class="fc-meta">
+      <span class="tag cat">${esc(card.cat)}</span>
+      ${card.t ? `<span class="tag">${esc(card.t)}</span>` : ""}
+      ${n ? `<span class="tag exam" title="${esc(srcText(card.s))}">${n > 1 ? "Tenta ×" + n : "Tentafråga"}</span>` : ""}
+      ${S.known[card.id] ? `<span class="tag known">✓ Kan</span>` : ""}
+      ${S.star[card.id] ? `<span class="tag starred">★ Öva</span>` : ""}
+      <span class="face-label">${flipped ? "Svar" : "Fråga"}</span>
+    </div>`;
+  let body;
+  if (!flipped){
+    body = `<h2 class="fc-q">${inline(card.q)}</h2><p class="fc-hint">Tänk ut svaret – tryck på kortet eller mellanslag för att vända.</p>`;
+  } else {
+    body = `<p class="fc-qs">${inline(card.q)}</p>
+      <div class="core"><div class="lbl">Kärnsvar – ger poäng</div><div class="rich">${fmt(card.a)}</div></div>
+      ${card.d ? `<div class="deep"><div class="lbl muted">Fördjupning</div><div class="rich">${fmt(card.d)}</div></div>` : ""}
+      ${card.s ? `<div class="src">Källa: ${esc(srcText(card.s))}</div>` : ""}`;
+  }
+  area.innerHTML = `<div class="stage"><article class="fc${flipped ? " is-back" : ""}" id="card" tabindex="0" aria-label="Flashcard, tryck för att vända" aria-live="polite">${meta}${body}</article></div>`;
+  $("#pos").textContent = `${i + 1} / ${q.length}`;
+  $("#flipBtn").textContent = flipped ? "Visa fråga" : "Visa svar";
+  const kb = $("#knownBtn"); kb.setAttribute("aria-pressed", String(!!S.known[card.id])); kb.querySelector("span").textContent = S.known[card.id] ? "Kan (ångra)" : "Kan";
+  const sb = $("#starBtn"); sb.setAttribute("aria-pressed", String(!!S.star[card.id])); sb.querySelector("span").textContent = S.star[card.id] ? "Övar" : "Öva";
+  const multi = q.length > 1;
+  $("#prevBtn").disabled = !multi; $("#nextBtn").disabled = !multi;
+  bindCard();
+  save();
+}
+function bindCard(){
+  const el = $("#card"); if (!el) return;
+  let sx = 0, sy = 0, moved = false;
+  el.addEventListener("click", () => { if (!moved) flip(); moved = false; });
+  el.addEventListener("touchstart", e => { const t = e.touches[0]; sx = t.clientX; sy = t.clientY; moved = false; }, { passive: true });
+  el.addEventListener("touchend", e => {
+    const t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
+    if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.4){ moved = true; step(dx < 0 ? 1 : -1); }
+  }, { passive: true });
+}
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+function flip(){
+  const el = $("#card"); if (!el) return;
+  const q = queue(); const { card } = current(q);
+  const done = () => { flipped = !flipped; if (flipped && card){ S.seen[card.id] = 1; } renderStudy(); const n = $("#card"); if (n && !reduce){ n.classList.add("turn"); requestAnimationFrame(() => requestAnimationFrame(() => n.classList.remove("turn"))); } };
+  if (reduce) return done();
+  el.classList.add("turn"); setTimeout(done, 150);
+}
+function step(d){
+  const q = queue(); if (q.length < 2) return;
+  const { i } = current(q);
+  const j = (i + d + q.length) % q.length;
+  S.prefs.cur = q[j].id; lastIdx = j; flipped = false;
+  const el = $("#card");
+  if (el && !reduce){ el.classList.add(d > 0 ? "slide-l" : "slide-r"); setTimeout(() => { renderStudy(); const n = $("#card"); if (n){ n.classList.add(d > 0 ? "slide-r" : "slide-l"); requestAnimationFrame(() => requestAnimationFrame(() => n.classList.remove("slide-r","slide-l"))); } }, 130); }
+  else renderStudy();
+}
+function toggleKnown(){
+  const q = queue(); if (!q.length) return;
+  const { i, card } = current(q);
+  if (S.known[card.id]){ delete S.known[card.id]; toast("Avmarkerad – kortet är tillbaka i bunten"); }
+  else {
+    S.known[card.id] = 1;
+    if (S.prefs.mode === "unknown"){
+      const nxt = q[i + 1] || q[i - 1];
+      S.prefs.cur = nxt ? nxt.id : null; lastIdx = i;
+      flipped = false;
+      toast("Markerad som Kan – visas inte igen förrän du avmarkerar");
+    } else toast("Markerad som Kan");
+  }
+  save(); renderTop(); renderStudy();
+}
+function toggleStar(){
+  const q = queue(); if (!q.length) return;
+  const { i, card } = current(q);
+  if (S.star[card.id]){
+    delete S.star[card.id];
+    if (S.prefs.mode === "star"){ const nxt = q[i + 1] || q[i - 1]; S.prefs.cur = nxt ? nxt.id : null; flipped = false; }
+    toast("Borttagen från övningsbunten");
+  } else { S.star[card.id] = 1; toast("Tillagd i ★ Öva"); }
+  save(); renderStudy();
+}
+
+/* ---------- Progress ---------- */
+function renderProgress(){
+  const a = stat(() => true);
+  const seen = S.deck.filter(c => S.seen[c.id]).length;
+  const starred = S.deck.filter(c => S.star[c.id]).length;
+  const ex = stat(c => isExam(c));
+  $("#overview").innerHTML = ring(a.pct, 150, 13, 30) + `<div class="stats">
+      <div class="stat"><b>${a.known}</b><span>av ${a.total} kort kan du</span></div>
+      <div class="stat"><b>${a.total - a.known}</b><span>återstår</span></div>
+      <div class="stat"><b>${ex.pct}%</b><span>av tentafrågorna (${ex.known}/${ex.total})</span></div>
+      <div class="stat"><b>${seen}</b><span>svar visade minst en gång</span></div>
+      <div class="stat"><b>${starred}</b><span>i ★ Öva</span></div>
+    </div>`;
+  let h = "";
+  for (const c of cats()){
+    const s = stat(x => x.cat === c);
+    h += `<div class="cat-card">${ring(s.pct, 64, 7, 13)}<div class="info"><h4>${esc(c)}</h4><p>${s.known} av ${s.total} kan</p>
+      <div class="row"><button class="btn sm primary" data-study="${esc(c)}">Plugga</button><button class="btn sm ghost" data-resetcat="${esc(c)}">Nollställ</button></div></div></div>`;
+  }
+  $("#catGrid").innerHTML = h;
+  $("#freq").innerHTML = FREQ.map(([t, n]) => `<div class="freq-row"><span>${esc(t)}</span><div class="freq-bar"><i style="width:${n*10}%"></i></div><b>${n}/10</b></div>`).join("") +
+    `<p class="freq-note">Metalldelen ger ca 30–32 av 50 poäng. Betygsgränser: 3 ≥ 40 %, 4 ≥ 60 %, 5 ≥ 80 %. Fasdiagram, kristallografi och materialval har kommit på i princip varje tenta – prioritera dem.</p>`;
+}
+
+/* ---------- List ---------- */
+function renderList(){
+  const fc = $("#fCat"), cur = fc.value || "all";
+  fc.innerHTML = `<option value="all">Alla kategorier</option>` + cats().map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join("");
+  fc.value = cats().includes(cur) || cur === "all" ? cur : "all";
+  const term = $("#q").value.trim().toLowerCase();
+  const st = $("#fStatus").value;
+  const rows = S.deck.filter(c =>
+    (fc.value === "all" || c.cat === fc.value) &&
+    (st === "all" || (st === "known" && S.known[c.id]) || (st === "unknown" && !S.known[c.id]) || (st === "star" && S.star[c.id]) || (st === "exam" && isExam(c))) &&
+    (!term || [c.q, c.a, c.d, c.s, c.cat, c.t].join(" ").toLowerCase().includes(term)));
+  $("#count").textContent = `Visar ${rows.length} av ${S.deck.length} kort`;
+  const ic = {
+    edit: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/></svg>`,
+    del: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>`,
+    star: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9z"/></svg>`,
+    starO: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9z"/></svg>`
+  };
+  let h = "";
+  for (const c of rows){
+    const open = openRow === c.id;
+    h += `<tr class="row${open ? " open" : ""}" data-id="${esc(c.id)}">
+      <td class="c-k"><input type="checkbox" data-known="${esc(c.id)}" ${S.known[c.id] ? "checked" : ""} aria-label="Markera som Kan"></td>
+      <td class="c-q">${inline(c.q)}</td>
+      <td class="c-a"><div class="clamp">${esc(plain(c.a))}</div></td>
+      <td class="c-cat">${esc(c.cat)}</td>
+      <td class="c-src">${esc(srcText(c.s)) || "–"}</td>
+      <td class="c-act">
+        <button class="icon-btn${S.star[c.id] ? " on" : ""}" data-star="${esc(c.id)}" aria-label="Öva" title="★ Öva">${S.star[c.id] ? ic.star : ic.starO}</button>
+        <button class="icon-btn" data-edit="${esc(c.id)}" aria-label="Redigera" title="Redigera">${ic.edit}</button>
+        <button class="icon-btn del" data-del="${esc(c.id)}" aria-label="Ta bort" title="Ta bort">${ic.del}</button>
+      </td></tr>`;
+    if (open) h += `<tr class="detail"><td colspan="6"><div class="core"><div class="lbl">Kärnsvar</div><div class="rich">${fmt(c.a)}</div></div>${c.d ? `<div class="deep"><div class="lbl muted">Fördjupning</div><div class="rich">${fmt(c.d)}</div></div>` : ""}</td></tr>`;
+  }
+  $("#tbody").innerHTML = h || `<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:28px">Inga kort matchar sökningen.</td></tr>`;
+}
+
+/* ---------- Edit dialog ---------- */
+let editingId = null;
+function openEditor(id){
+  editingId = id;
+  const c = id ? S.deck.find(x => x.id === id) : { cat: S.prefs.cat !== "all" ? S.prefs.cat : cats()[0], t: "Begrepp", q: "", a: "", d: "", s: "" };
+  $("#dlgTitle").textContent = id ? "Redigera kort" : "Nytt kort";
+  $("#fCatSel").innerHTML = cats().map(x => `<option value="${esc(x)}">${esc(x)}</option>`).join("") + `<option value="__new">+ Ny kategori …</option>`;
+  $("#fCatSel").value = c.cat; $("#newCatWrap").hidden = true; $("#fNewCat").value = "";
+  $("#fType").value = c.t || "Begrepp";
+  $("#fQ").value = c.q; $("#fA").value = c.a; $("#fD").value = c.d || ""; $("#fS").value = c.s || "";
+  $("#dlg").showModal();
+  setTimeout(() => $("#fQ").focus(), 30);
+}
+function saveEditor(){
+  let cat = $("#fCatSel").value;
+  if (cat === "__new"){ cat = $("#fNewCat").value.trim(); if (!cat){ $("#fNewCat").focus(); return false; } }
+  const data = { cat, t: $("#fType").value, q: $("#fQ").value.trim(), a: $("#fA").value.trim(), d: $("#fD").value.trim(), s: $("#fS").value.trim() };
+  if (!data.q){ $("#fQ").focus(); return false; }
+  if (!data.a){ $("#fA").focus(); return false; }
+  if (editingId){ Object.assign(S.deck.find(x => x.id === editingId), data); toast("Kortet sparat"); }
+  else { const id = "u" + Date.now().toString(36) + Math.random().toString(36).slice(2, 5); S.deck.push(Object.assign({ id }, data)); order[id] = Math.random(); toast("Nytt kort tillagt"); }
+  save(); render(); return true;
+}
+function deleteCard(id){
+  const c = S.deck.find(x => x.id === id); if (!c) return;
+  if (!confirm(`Ta bort kortet?\n\n"${plain(c.q).slice(0, 120)}"`)) return;
+  S.deck = S.deck.filter(x => x.id !== id);
+  delete S.known[id]; delete S.star[id]; delete S.seen[id];
+  if (S.prefs.cur === id) S.prefs.cur = null;
+  save(); render(); toast("Kortet borttaget");
+}
+
+/* ---------- Data ---------- */
+function exportData(){
+  const blob = new Blob([JSON.stringify({ app: "mtt085-metall", version: 1, exported: new Date().toISOString(), deck: S.deck, known: S.known, star: S.star, seen: S.seen }, null, 1)], { type: "application/json" });
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob);
+  a.download = `mtt085-metall-${new Date().toISOString().slice(0,10)}.json`;
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+function importData(file){
+  const r = new FileReader();
+  r.onload = () => {
+    try {
+      const d = JSON.parse(r.result);
+      if (!Array.isArray(d.deck) || !d.deck.every(c => c && c.id && c.q != null && c.a != null && c.cat)) throw new Error("format");
+      if (!confirm(`Importera ${d.deck.length} kort och ersätta nuvarande kortlek och progress?`)) return;
+      S.deck = d.deck; S.known = d.known || {}; S.star = d.star || {}; S.seen = d.seen || {}; S.prefs.cur = null;
+      reshuffle(); save(); render(); toast("Import klar");
+    } catch(e){ alert("Filen kunde inte läsas – den verkar inte vara en export från den här appen."); }
+  };
+  r.readAsText(file);
+}
+
+/* ---------- Events ---------- */
+document.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => setView(t.dataset.view)));
+$("#chips").addEventListener("click", e => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  S.prefs.cat = b.dataset.cat; S.prefs.cur = null; lastIdx = 0; flipped = false; save(); renderStudy();
+  b.scrollIntoView({ block: "nearest", inline: "nearest" });
+});
+$("#modeSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; S.prefs.mode = b.dataset.mode; flipped = false; save(); renderStudy(); });
+$("#examOnly").addEventListener("change", e => { S.prefs.exam = e.target.checked; flipped = false; save(); renderStudy(); });
+$("#shuffleBtn").addEventListener("click", () => { S.prefs.shuffle = !S.prefs.shuffle; if (S.prefs.shuffle) reshuffle(); S.prefs.cur = null; lastIdx = 0; flipped = false; save(); renderStudy(); toast(S.prefs.shuffle ? "Korten blandade" : "Ursprunglig ordning"); });
+/* Mouse clicks shouldn't leave focus on study buttons – keeps Space = flip */
+["#controls", ".toolbar", "#chips"].forEach(sel => $(sel).addEventListener("mousedown", e => { if (e.target.closest("button")) e.preventDefault(); }));
+$("#prevBtn").addEventListener("click", () => step(-1));
+$("#nextBtn").addEventListener("click", () => step(1));
+$("#flipBtn").addEventListener("click", flip);
+$("#knownBtn").addEventListener("click", toggleKnown);
+$("#starBtn").addEventListener("click", toggleStar);
+$("#cardArea").addEventListener("click", e => {
+  const b = e.target.closest("[data-act]"); if (!b) return;
+  const a = b.dataset.act, p = S.prefs;
+  if (a === "mode-all") p.mode = "all";
+  if (a === "mode-unknown") p.mode = "unknown";
+  if (a === "clear-filters"){ p.exam = false; p.cat = "all"; p.mode = "unknown"; }
+  if (a === "reset-cat"){
+    if (!confirm(p.cat === "all" ? "Nollställa Kan-markeringar för alla kort?" : `Nollställa Kan-markeringar i "${p.cat}"?`)) return;
+    S.deck.forEach(c => { if (p.cat === "all" || c.cat === p.cat) delete S.known[c.id]; });
+  }
+  p.cur = null; save(); render();
+});
+document.addEventListener("keydown", e => {
+  if (S.prefs.view !== "study" || $("#dlg").open) return;
+  if (e.target.matches("input, textarea, select") || e.metaKey || e.ctrlKey || e.altKey) return;
+  const k = e.key;
+  if (k === " " || k === "Enter"){ if (e.target.closest("button, a, label")) return; e.preventDefault(); flip(); }
+  else if (k === "ArrowRight"){ e.preventDefault(); step(1); }
+  else if (k === "ArrowLeft"){ e.preventDefault(); step(-1); }
+  else if (k === "k" || k === "K"){ toggleKnown(); }
+  else if (k === "s" || k === "S"){ toggleStar(); }
+  else if (k === "b" || k === "B"){ $("#shuffleBtn").click(); }
+});
+
+$("#catGrid").addEventListener("click", e => {
+  const s = e.target.closest("[data-study]"), r = e.target.closest("[data-resetcat]");
+  if (s){ S.prefs.cat = s.dataset.study; S.prefs.mode = "unknown"; S.prefs.cur = null; flipped = false; setView("study"); }
+  if (r){ const c = r.dataset.resetcat; if (!confirm(`Nollställa Kan-markeringar i "${c}"?`)) return; S.deck.forEach(x => { if (x.cat === c) delete S.known[x.id]; }); save(); render(); toast("Kategorin nollställd"); }
+});
+$("#exportBtn").addEventListener("click", exportData);
+$("#importBtn").addEventListener("click", () => $("#importFile").click());
+$("#importFile").addEventListener("change", e => { const f = e.target.files[0]; if (f) importData(f); e.target.value = ""; });
+$("#resetProgressBtn").addEventListener("click", () => { if (!confirm("Nollställa alla Kan- och Öva-markeringar?")) return; S.known = {}; S.star = {}; S.seen = {}; save(); render(); toast("All progress nollställd"); });
+$("#resetDeckBtn").addEventListener("click", () => {
+  if (!confirm("Återställa standardkortleken? Egna kort och redigeringar försvinner. Kan-markeringar för standardkorten behålls.")) return;
+  S.deck = clone(DEFAULT_DECK);
+  const ids = new Set(S.deck.map(c => c.id));
+  for (const m of [S.known, S.star, S.seen]) Object.keys(m).forEach(k => { if (!ids.has(k)) delete m[k]; });
+  S.prefs.cur = null; reshuffle(); save(); render(); toast("Standardkortleken återställd");
+});
+
+let qT;
+$("#q").addEventListener("input", () => { clearTimeout(qT); qT = setTimeout(renderList, 120); });
+$("#fCat").addEventListener("change", renderList);
+$("#fStatus").addEventListener("change", renderList);
+$("#addBtn").addEventListener("click", () => openEditor(null));
+$("#tbody").addEventListener("click", e => {
+  const k = e.target.closest("[data-known]"), ed = e.target.closest("[data-edit]"), dl = e.target.closest("[data-del]"), st = e.target.closest("[data-star]");
+  if (k){ const id = k.dataset.known; if (k.checked) S.known[id] = 1; else delete S.known[id]; save(); renderTop(); return; }
+  if (st){ const id = st.dataset.star; if (S.star[id]) delete S.star[id]; else S.star[id] = 1; save(); renderList(); return; }
+  if (ed){ openEditor(ed.dataset.edit); return; }
+  if (dl){ deleteCard(dl.dataset.del); return; }
+  const row = e.target.closest("tr.row");
+  if (row){ openRow = openRow === row.dataset.id ? null : row.dataset.id; renderList(); }
+});
+$("#fCatSel").addEventListener("change", e => { const n = e.target.value === "__new"; $("#newCatWrap").hidden = !n; if (n) $("#fNewCat").focus(); });
+$("#cardForm").addEventListener("submit", e => { e.preventDefault(); if (saveEditor()) $("#dlg").close(); });
+$("#dlgCancel").addEventListener("click", () => $("#dlg").close());
+$("#dlgX").addEventListener("click", () => $("#dlg").close());
+
+setView(S.prefs.view || "study");
+})();
+</script>
+</body>
+</html>
